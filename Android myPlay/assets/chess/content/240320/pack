@@ -1,0 +1,138 @@
+
+content1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boardBG
+  rotate: false
+  xy: 2, 2
+  size: 240, 266
+  orig: 240, 266
+  offset: 0, 0
+  index: -1
+board
+  rotate: false
+  xy: 2, 270
+  size: 214, 239
+  orig: 214, 239
+  offset: 0, 0
+  index: -1
+effect Chon
+  rotate: false
+  xy: 218, 270
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+xanh tot
+  rotate: false
+  xy: 218, 301
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+xanh phao
+  rotate: false
+  xy: 218, 329
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+xanh
+  rotate: false
+  xy: 218, 356
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+xanh xe
+  rotate: false
+  xy: 218, 382
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+xanh tuongs
+  rotate: false
+  xy: 218, 408
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+xanh sy
+  rotate: false
+  xy: 218, 434
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+xanh ma
+  rotate: false
+  xy: 218, 460
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+do xe
+  rotate: false
+  xy: 2, 511
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+do tuongs
+  rotate: false
+  xy: 30, 511
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+do tuongj
+  rotate: false
+  xy: 58, 511
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+do tot
+  rotate: false
+  xy: 86, 511
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+do sy
+  rotate: false
+  xy: 114, 511
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+do phao
+  rotate: false
+  xy: 142, 511
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+do ma
+  rotate: false
+  xy: 170, 511
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+goi y
+  rotate: false
+  xy: 218, 486
+  size: 21, 20
+  orig: 21, 20
+  offset: 0, 0
+  index: -1
+effect vua di
+  rotate: false
+  xy: 198, 511
+  size: 21, 20
+  orig: 21, 20
+  offset: 0, 0
+  index: -1
