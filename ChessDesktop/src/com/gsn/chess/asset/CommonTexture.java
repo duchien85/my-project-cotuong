@@ -148,8 +148,8 @@ public class CommonTexture {
 	static public TextureRegion xEffect;
 	
 	static public void assignContent() {
-		clickEffect.load(Gdx.files.internal("data/particle/click.p"), Gdx.files.internal("data/particle"));
-		TextureAtlas atlas = manager.get("data/content/pack", TextureAtlas.class);
+		clickEffect.load(Gdx.files.internal("common/particle/click.p"), Gdx.files.internal("common/particle"));
+		TextureAtlas atlas = manager.get("common/content/pack", TextureAtlas.class);
 
 		okBtn = atlas.findRegion("okBtn");
 		cancelBtn = atlas.findRegion("cancelBtn");
@@ -266,8 +266,8 @@ public class CommonTexture {
 		infoBg = atlas.findRegion("bang thong tin");
 		waitOpponentReady = atlas.findRegion("waitOpponentReady");
 
-		mediumFont = manager.get("data/font/medium.fnt", BitmapFont.class);
-		largeFont = manager.get("data/font/large.fnt", BitmapFont.class);
+		mediumFont = manager.get("common/font/medium.fnt", BitmapFont.class);
+		largeFont = manager.get("common/font/large.fnt", BitmapFont.class);
 		// font = new BitmapFont();
 	}
 
@@ -298,9 +298,9 @@ public class CommonTexture {
 	}
 
 	static public void loadTexture() {
-		manager.load("data/content/pack", TextureAtlas.class);
-		manager.load("data/font/medium.fnt", BitmapFont.class);
-		manager.load("data/font/large.fnt", BitmapFont.class);
+		manager.load("common/content/pack", TextureAtlas.class);
+		manager.load("common/font/medium.fnt", BitmapFont.class);
+		manager.load("common/font/large.fnt", BitmapFont.class);
 	}		
 
 	static public boolean update() {
