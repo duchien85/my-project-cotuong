@@ -5,21 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 
 abstract public class GsnGame implements ApplicationListener {
-	public GsnScreen currentStage;
-
-
+	public GsnScreen currentScreen;
+	
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		if (currentStage != null) {
-			currentStage.act(Gdx.graphics.getDeltaTime());
-			currentStage.draw();
+		if (currentScreen != null) {
+			currentScreen.act(Gdx.graphics.getDeltaTime());
+			currentScreen.draw();
 		}
 	}
 
-	public void setScreen(GsnScreen stage) {
-		this.currentStage = stage;
-		stage.setInputListener();
+	public void setScreen(GsnScreen screen) {
+		if  (currentScreen != null)
+			currentScreen.onHideScreen();
+		currentScreen = screen;
+		currentScreen.onShowScreen();
+		screen.setInputListener();
 	};
 
 }

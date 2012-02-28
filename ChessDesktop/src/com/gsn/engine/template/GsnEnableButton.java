@@ -3,14 +3,14 @@ package com.gsn.engine.template;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 
-public class GsnButton extends GsnNormalButton {
+public class GsnEnableButton extends GsnNormalButton {
 	ClickListener clickListener;
 	ImageButtonStyle disableState;
 	Boolean enable;
 	ImageButtonStyle enableState;
 	public int id;
 	public String nameButton;
-	public GsnButton(int id, String name, TextureRegion normal, TextureRegion down, TextureRegion disable) {
+	public GsnEnableButton(int id, String name, TextureRegion normal, TextureRegion down, TextureRegion disable) {
 		super(name, normal, down, normal);
 		enableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, normal, down, normal);
 
@@ -20,9 +20,9 @@ public class GsnButton extends GsnNormalButton {
 		this.id = id;
 	}
 
-	public GsnButton(int id, String name,TextureRegion normal, TextureRegion down, TextureRegion up, TextureRegion disable) {
-		super(name, normal, down, up);
-		enableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, normal, down, up);
+	public GsnEnableButton(int id, String name,TextureRegion normal, TextureRegion down, TextureRegion check, TextureRegion disable) {
+		super(name, normal, down, check);
+		enableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, normal, down, check);
 
 		if (disable != null) {
 			disableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, disable, disable, disable);

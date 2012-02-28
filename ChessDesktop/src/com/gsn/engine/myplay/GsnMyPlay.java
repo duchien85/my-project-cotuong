@@ -1,5 +1,9 @@
 package com.gsn.engine.myplay;
 
+import com.gsn.engine.mercurry.MercuryClient;
+
 public class GsnMyPlay {
-	public Object binder;
+	public static Object binder;
+	public static MercuryClient client;
+	public static GsnGame game;
 }

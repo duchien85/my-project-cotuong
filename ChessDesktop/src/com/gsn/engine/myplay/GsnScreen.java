@@ -13,6 +13,14 @@ abstract public class GsnScreen{
 		this.height = height;
 	}
 	
+	public void onShowScreen(){
+		
+	}
+	
+	public void onHideScreen(){
+		
+	}
+	
 	public void addLayer(GsnLayer layer){
 		layers.add(layer);
 		sortLayer();
@@ -20,6 +28,17 @@ abstract public class GsnScreen{
 	
 	public void addLayer(GsnLayer layer, float index, boolean visible){
 		layer.index = index;
+		layer.visible = visible;
+		layers.add(layer);
+		sortLayer();
+	}
+	
+	public void addLayer(GsnLayer layer, boolean visible){
+		float max = -1000;
+		for (GsnLayer tmp : layers)
+			if (max < layer.index)
+				max = layer.index;
+		layer.index = max + 1;
 		layer.visible = visible;
 		layers.add(layer);
 		sortLayer();
