@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.chess.asset.ChessTexture;
 
-public class GsnPiece extends Image {
-	public Piece logic;
+public class GsnPiece extends Image {	
 	
 	public static GsnPiece createPiece(Piece piece) {
 		switch (piece.ownerID){
@@ -51,8 +50,12 @@ public class GsnPiece extends Image {
 		return null;
 	}
 	
+	public Piece logic;
+	public boolean selected;
+	
 	public GsnPiece(Piece piece, TextureRegion region) {
 		super(region);
 		this.logic = piece;
+		selected = false;
 	}
 }

@@ -19,13 +19,14 @@ public class BoardGroup extends Group implements ClickListener {
 	float scale;
 	float longCell;
 	CoTuongLogic logic;
-
+	Image select;
 	public BoardGroup(float width, float height) {
 		this.width = width;
 		this.height = height;
 		logic = new CoTuongLogic();
 		logic.initNewGame(0, 10);
-
+		
+		
 		float boardWidth = 0.95f * width;
 		float boardHeight = 0.95f * height;
 
@@ -46,8 +47,13 @@ public class BoardGroup extends Group implements ClickListener {
 		addActor(board);
 		
 		initBoard();
-		Image img = new GsnPiece(null, ChessTexture.blueSoldier);
+		Image img = new Image(ChessTexture.effectSelect);
 		addActor(img);
+		
+		select = new Image(ChessTexture.effectSelect);
+		scaleContent(select);
+		addActor(select);
+		select.visible = false;
 	}
 
 	public void initBoard() {
@@ -55,8 +61,9 @@ public class BoardGroup extends Group implements ClickListener {
 			Piece[] pieceArr = logic.playerPM[i].Pieces;
 			for (int j = 0; j < pieceArr.length; j++) {
 				GsnPiece piece = GsnPiece.createPiece(pieceArr[j]);
-				if (piece != null) {
+				if (piece != null) {					
 					addActor(piece);
+					piece.setClickListener(this);
 					scaleContent(piece);
 					putCell(piece, piece.logic.iRow, piece.logic.iCol);
 				}
@@ -80,15 +87,25 @@ public class BoardGroup extends Group implements ClickListener {
 	public void click(Actor actor, float x, float y) {
 		if (actor == board) {
 			Gdx.app.log(tag, "click board : " + x + " " + y);
-			int column = Math.round(x / longCell);
-			int row = Math.round(y / longCell);
-			float kcX = Math.abs(x - column * longCell);
-			float kcY = Math.abs(y - row * longCell);
-			if ((kcX < longCell / 3 && kcY < longCell / 3)) {
-				Image piece = new Image(ChessTexture.blueCatapult);
-				putCell(piece, row, column);
-				addActor(piece);
-			}
+//			int column = Math.round(x / longCell);
+//			int row = Math.round(y / longCell);
+//			float kcX = Math.abs(x - column * longCell);
+//			float kcY = Math.abs(y - row * longCell);
+//			if ((kcX < longCell / 3 && kcY < longCell / 3)) {
+//				Image piece = new Image(ChessTexture.blueCatapult);
+//				putCell(piece, row, column);
+//				addActor(piece);
+//			}
+		} else if (actor instanceof GsnPiece){
+			GsnPiece piece = (GsnPiece)actor;
+			Gdx.app.log(tag, "click piece : " + piece.logic.pieceType);
+			effectSelect(piece.logic.iRow, piece.logic.iCol);
 		}
+	}
+
+	
+	public void effectSelect(int row, int col){
+		select.visible = true;			
+		putCell(select, row, col);
 	}
 }
