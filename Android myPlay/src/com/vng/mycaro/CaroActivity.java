@@ -4,18 +4,18 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.gsn.caro.game.CaroGame;
+import com.gsn.chess.game.ChessGame;
 
 public class CaroActivity extends AndroidApplication {
     /** Called when the activity is first created. */
-	CaroGame game = new CaroGame();
+	ChessGame game;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     	AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useWakelock = true;
 		createWakeLock(config);
-		game = new CaroGame();
+		game = new ChessGame();
 		//this.bindService(new Intent(this, CaroService.class), conn, Context.BIND_AUTO_CREATE);
 		initialize(game, config);
       //  setContentView(R.layout.main);
