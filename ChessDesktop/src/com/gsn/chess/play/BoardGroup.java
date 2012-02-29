@@ -1,8 +1,12 @@
 package com.gsn.chess.play;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import chess.logic.game.CoTuongLogic;
+import chess.logic.game.CoTuongLogic.TargetChess;
 import chess.logic.game.piece.Piece;
-import chess.logic.game.piece.Soldier;
+import chess.logic.game.piece.Piece.ETargetType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,55 +17,101 @@ import com.gsn.chess.asset.ChessTexture;
 import com.gsn.engine.ActorUtility;
 
 public class BoardGroup extends Group implements ClickListener {
-	public static final String tag = "Board Group";
+	enum State {
+		CHUA_CHON, DA_CHON
+	}
 
+	public static final String tag = "Board Group";
+	public static int GENERAL_ID = 15;
 	Image board;
-	float scale;
-	float longCell;
+	Image boardBG;
+	Image justMoveEff;
+	Image selectEff;
+	Image chieuEff;
+	Image camChieuEff;
 	CoTuongLogic logic;
-	Image select;
+
+	float longCell;
+	float scale;
+
+	GsnPiece selectPiece;
+
+	State state;
+	List<Image> suggestList = new ArrayList<Image>();
+	List<GsnPiece> pieceList = new ArrayList<GsnPiece>();
+
 	public BoardGroup(float width, float height) {
 		this.width = width;
 		this.height = height;
-		logic = new CoTuongLogic();
-		logic.initNewGame(0, 10);
-		
-		
-		float boardWidth = 0.95f * width;
-		float boardHeight = 0.95f * height;
-
-		Image boardBG = new Image(ChessTexture.boardBG);
-		boardBG.width = width;
-		boardBG.height = height;
-
-		board = new Image(ChessTexture.board);
-		scale = Math.min(boardWidth / board.width, boardHeight / board.height);
-		board.setClickListener(this);
-
-		scaleContent(board);
-		longCell = board.width / 8;
-
-		ActorUtility.setCenter(board, width / 2, height / 2);		
-		
-		addActor(boardBG);
-		addActor(board);
-		
-		initBoard();
-		Image img = new Image(ChessTexture.effectSelect);
-		addActor(img);
-		
-		select = new Image(ChessTexture.effectSelect);
-		scaleContent(select);
-		addActor(select);
-		select.visible = false;
+		newGame(0);
 	}
 
-	public void initBoard() {
+	private void addSuggest(int row, int col) {
+		Image tmp = new Image(ChessTexture.effectSuggest);
+		scaleContent(tmp);
+		putCell(tmp, row, col);
+		addActor(tmp);
+		suggestList.add(tmp);
+	}
+
+	private void addSuggestAnQuan(int row, int col) {
+		Image tmp = new Image(ChessTexture.effectJustMove);
+		scaleContent(tmp);
+		putCell(tmp, row, col);
+		addActor(tmp);
+		suggestList.add(tmp);
+	}
+
+	@Override
+	public void click(Actor actor, float x, float y) {
+		if (actor == boardBG) {
+			Gdx.app.log(tag, "click board : " + x + " " + y);
+			x = x - board.x;
+			y = y - board.y;
+			int column = Math.round(x / longCell);
+			int row = Math.round(y / longCell);
+			float kcX = Math.abs(x - column * longCell);
+			float kcY = Math.abs(y - row * longCell);
+			if ((kcX < longCell * 0.45 && kcY < longCell * 0.45)) {
+				selectCell(row, column);
+			}
+		} else if (actor instanceof GsnPiece) {
+			GsnPiece piece = (GsnPiece) actor;
+			Gdx.app.log(tag, "click piece : " + piece.logic.pieceType + " owner : " + piece.logic.ownerID + " id : " + piece.logic.pieceID);
+			switch (state) {
+			case CHUA_CHON:
+				if (logic.getCurrentTurnID() == piece.logic.ownerID) {
+					selectMyPiece(piece);
+				}
+				break;
+			case DA_CHON:
+				if (logic.getCurrentTurnID() == piece.logic.ownerID)
+					selectMyPiece(piece);
+				else
+					selectCell(piece.logic.iRow, piece.logic.iCol);
+				break;
+			}
+		}
+	}
+
+	private void effectSelect(int row, int col) {
+		selectEff.visible = true;
+		putCell(selectEff, row, col);
+	}
+
+	private void effectCamChieu(int row, int col) {
+		camChieuEff.visible = true;
+		putCell(camChieuEff, row, col);
+	}
+
+	private void initBoard() {
+		pieceList.clear();
 		for (int i = 0; i < 2; i++) {
 			Piece[] pieceArr = logic.playerPM[i].Pieces;
 			for (int j = 0; j < pieceArr.length; j++) {
 				GsnPiece piece = GsnPiece.createPiece(pieceArr[j]);
-				if (piece != null) {					
+				if (piece != null) {
+					pieceList.add(piece);
 					addActor(piece);
 					piece.setClickListener(this);
 					scaleContent(piece);
@@ -72,40 +122,167 @@ public class BoardGroup extends Group implements ClickListener {
 
 	}
 
-	public void scaleContent(Actor actor) {
-		actor.width *= scale;
-		actor.height *= scale;
+	void newGame(int firstTurn) {
+		logic = new CoTuongLogic();
+		logic.initNewGame(firstTurn);
+
+		clear();
+		state = State.CHUA_CHON;
+		float boardWidth = 0.9f * width;
+		float boardHeight = 0.9f * height;
+
+		boardBG = new Image(ChessTexture.boardBG);
+		boardBG.width = width;
+		boardBG.height = height;
+		boardBG.setClickListener(this);
+
+		board = new Image(ChessTexture.board);
+		scale = Math.min(boardWidth / board.width, boardHeight / board.height);
+
+		scaleContent(board);
+		longCell = board.width / 8;
+
+		ActorUtility.setCenter(board, width / 2, height / 2);
+
+		addActor(boardBG);
+		addActor(board);
+
+		initBoard();
+
+		Image img = new Image(ChessTexture.effectJustMove);
+		img.x = -20;
+		img.y = -20;
+		addActor(img);
+
+		selectEff = new Image(ChessTexture.effectSelect);
+		scaleContent(selectEff);
+		addActor(selectEff);
+		selectEff.visible = false;
+
+		justMoveEff = new Image(ChessTexture.effectJustMove);
+		scaleContent(justMoveEff);
+		addActor(justMoveEff);
+		justMoveEff.visible = false;
+
+		chieuEff = new Image(ChessTexture.effectJustMove);
+		scaleContent(chieuEff);
+		addActor(chieuEff);
+		chieuEff.visible = false;
+
+		camChieuEff = new Image(ChessTexture.effectJustMove);
+		scaleContent(camChieuEff);
+		addActor(camChieuEff);
+		chieuEff.visible = false;
 	}
 
-	public void putCell(Actor actor, int row, int column) {
+	private void putCell(Actor actor, int row, int column) {
 		float x = board.x + column * longCell;
 		float y = board.y + row * longCell;
 		ActorUtility.setCenter(actor, x, y);
 	}
 
-	@Override
-	public void click(Actor actor, float x, float y) {
-		if (actor == board) {
-			Gdx.app.log(tag, "click board : " + x + " " + y);
-//			int column = Math.round(x / longCell);
-//			int row = Math.round(y / longCell);
-//			float kcX = Math.abs(x - column * longCell);
-//			float kcY = Math.abs(y - row * longCell);
-//			if ((kcX < longCell / 3 && kcY < longCell / 3)) {
-//				Image piece = new Image(ChessTexture.blueCatapult);
-//				putCell(piece, row, column);
-//				addActor(piece);
-//			}
-		} else if (actor instanceof GsnPiece){
-			GsnPiece piece = (GsnPiece)actor;
-			Gdx.app.log(tag, "click piece : " + piece.logic.pieceType);
-			effectSelect(piece.logic.iRow, piece.logic.iCol);
+	private void removeSuggest() {
+		for (Image tmp : suggestList)
+			tmp.remove();
+		suggestList.clear();
+	}
+
+	private void scaleContent(Actor actor) {
+		actor.width *= scale;
+		actor.height *= scale;
+	}
+
+	private void selectCell(int row, int col) {
+		Gdx.app.log(tag, "select cell : " + row + " " + col);
+		switch (state) {
+		case CHUA_CHON:
+			break;
+		case DA_CHON:
+			if (logic.checkPlayerMovePiece(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col) == ETargetType.e_DI_DUOC) {
+				moveChess(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col);
+			}
+			break;
 		}
 	}
 
-	
-	public void effectSelect(int row, int col){
-		select.visible = true;			
-		putCell(select, row, col);
+	private GsnPiece findPieceByID(int playerId, int pieceId) {
+		for (GsnPiece tmp : pieceList) {
+			if (tmp.visible && playerId == tmp.logic.ownerID && pieceId == tmp.logic.pieceID)
+				return tmp;
+		}
+		return null;
+	}
+
+	private GsnPiece findPieceByPos(int row, int col) {
+		for (GsnPiece tmp : pieceList) {
+			if (tmp.visible && row == tmp.logic.iRow && col == tmp.logic.iCol)
+				return tmp;
+		}
+		return null;
+	}
+
+	public void moveChess(int playerId, int pieceId, int row, int col) {
+		removeSuggest();
+		selectEff.visible = false;
+		camChieuEff.visible = false;
+		GsnPiece piece = findPieceByID(playerId, pieceId);
+		putCell(selectPiece, row, col);
+		GsnPiece other = findPieceByPos(row, col);
+		if (other != null)
+			other.visible = false;
+		logic.processMovePiece(playerId, piece.logic.pieceID, row, col, true);
+		state = State.CHUA_CHON;
+		logic.startNewTurn();
+		effectJustMove(row, col);
+		effectChieuTuong();
+	}
+
+	private int checkChieuTuong() {
+		if (logic.kiemTraChieuTuong(0))
+			return 0;
+		if (logic.kiemTraChieuTuong(1))
+			return 1;
+		return -1;
+	}
+
+	private void effectChieuTuong() {
+		int chieu = checkChieuTuong();
+		if (chieu < 0)
+			chieuEff.visible = false;
+		else {
+			GsnPiece general = findPieceByID(chieu, GENERAL_ID);
+			chieuEff.visible = true;
+			putCell(chieuEff, general.logic.iRow, general.logic.iCol);
+		}
+	}
+
+	private void effectJustMove(int row, int col) {
+		justMoveEff.visible = true;
+		putCell(justMoveEff, row, col);
+	}
+
+	private void selectMyPiece(GsnPiece piece) {
+		state = State.DA_CHON;
+		selectPiece = piece;
+		effectSelect(piece.logic.iRow, piece.logic.iCol);
+		List<TargetChess> targetList = logic.canMoveList(logic.getCurrentTurnID(), piece.logic.pieceID);
+		removeSuggest();
+		for (TargetChess target : targetList) {
+			int row = target.row;
+			int col = target.col;
+			// System.out.println("Target : " + row + " " + col);
+			switch (target.type) {
+			case e_DI_DUOC:
+				if (findPieceByPos(row, col) != null)
+					addSuggestAnQuan(row, col);
+				else
+					addSuggest(row, col);
+				break;
+			case e_CAM_CHIEU3:
+				effectCamChieu(row, col);
+				break;
+			}
+			effectCamChieu(2, 4);
+		}
 	}
 }

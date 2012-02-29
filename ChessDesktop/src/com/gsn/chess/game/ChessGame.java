@@ -18,11 +18,11 @@ public class ChessGame extends GsnGame {
 
 	@Override
 	public void create() {
-		CommonTexture.create();
-		CommonTexture.loadAll();	
-		
 		ChessTexture.create();
 		ChessTexture.loadAll();
+		
+		CommonTexture.create();
+		CommonTexture.loadAll();				
 		
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();

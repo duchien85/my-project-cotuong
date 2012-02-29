@@ -75,11 +75,11 @@ public class ChessTexture {
 		blueGuard = atlas.findRegion("xanh sy");
 		blueSoldier = atlas.findRegion("xanh tot");
 		blueElephant = atlas.findRegion("xanh");
-		blueRook = atlas.findRegion("xanh tuongs");
-		blueGeneral = atlas.findRegion("xanh xe");
+		blueRook = atlas.findRegion("xanh xe");
+		blueGeneral = atlas.findRegion("xanh tuongs");
 		effectSelect = atlas.findRegion("effect Chon");
-		effectJustMove = atlas.findRegion("okBtn");
-		effectSuggest = atlas.findRegion("okBtn");
+		effectJustMove = atlas.findRegion("effect vua di");
+		effectSuggest = atlas.findRegion("goi y");
 
 	}
 
