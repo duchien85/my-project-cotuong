@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="/Android myCaro/libs/gdx-backend-android.jar" sourcepath="/DifferentResolution/libs/gdx-backend-android-sources.jar"/>
 	<classpathentry kind="lib" path="/Android myCaro/libs/gdx.jar" sourcepath="/GdxDesktop/libs/gdx-sources.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ChessDesktop"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

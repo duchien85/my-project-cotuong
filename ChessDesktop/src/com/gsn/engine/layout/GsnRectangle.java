@@ -43,10 +43,6 @@ public class GsnRectangle {
 		return this;
 	}
 
-	public void putTopLeft(Actor actor) {
-		ActorUtility.setTopLeft(actor, this.x, this.y + this.height);
-	}
-
 	public GsnRectangle setMargin(boolean isRatio, float rMarginX, float rMarginY) {
 		// TODO Auto-generated method stub
 		float marginX;

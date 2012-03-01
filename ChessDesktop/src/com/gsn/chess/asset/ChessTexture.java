@@ -1,5 +1,7 @@
 package com.gsn.chess.asset;
 
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver;
@@ -33,6 +35,25 @@ public class ChessTexture {
 	public static AtlasRegion effectSelect;
 	public static AtlasRegion effectJustMove;
 	public static AtlasRegion effectSuggest;
+	
+	public static AtlasRegion betIcon1000;
+	public static AtlasRegion betIcon5000;
+	public static AtlasRegion chatBtn;
+	public static AtlasRegion chatBtnDown;
+	public static AtlasRegion clock1green;
+	public static AtlasRegion clock2green;
+	public static AtlasRegion clock1red;
+	public static AtlasRegion clock2red;
+	public static AtlasRegion signX;
+	public static AtlasRegion effectAnQuan;
+	public static AtlasRegion effectChieuTuong;
+	public static AtlasRegion quitBtn;
+	public static AtlasRegion quitBtnDown;
+	public static AtlasRegion scoreBG;
+	public static List<AtlasRegion> numScore;
+	public static List<AtlasRegion> numClock1;
+	public static List<AtlasRegion> numClock2;
+	public static AtlasRegion haicham;
 
 	static public void create() {
 		Resolution[] resolutions = { new Resolution(240, 320, "240320")};
@@ -74,13 +95,34 @@ public class ChessTexture {
 		blueCatapult = atlas.findRegion("xanh phao");
 		blueGuard = atlas.findRegion("xanh sy");
 		blueSoldier = atlas.findRegion("xanh tot");
-		blueElephant = atlas.findRegion("xanh");
+		blueElephant = atlas.findRegion("xanh tuongj");
 		blueRook = atlas.findRegion("xanh xe");
 		blueGeneral = atlas.findRegion("xanh tuongs");
 		effectSelect = atlas.findRegion("effect Chon");
 		effectJustMove = atlas.findRegion("effect vua di");
 		effectSuggest = atlas.findRegion("goi y");
-
+		effectAnQuan = atlas.findRegion("effect an");
+		effectChieuTuong = atlas.findRegion("effect chieu tuong");
+		signX = atlas.findRegion("dau x");
+		
+		betIcon1000 = atlas.findRegion("beticon1000");
+		betIcon5000 = atlas.findRegion("beticon5000");
+		chatBtn = atlas.findRegion("chatBtn");
+		chatBtnDown = atlas.findRegion("chatBtnDown");
+		
+		
+		quitBtn = atlas.findRegion("quitBtn");
+		quitBtnDown = atlas.findRegion("quitBtnDown");
+		clock1green = atlas.findRegion("clock1green");
+		clock2green = atlas.findRegion("clock2green");
+		clock1red = atlas.findRegion("clock1red");
+		clock2red = atlas.findRegion("clock2red");
+		scoreBG = atlas.findRegion("scoreBG");		
+		haicham = atlas.findRegion("hai cham");
+		
+		numClock1 = atlas.findRegions("numberClock");
+		numClock2 = atlas.findRegions("numberClock2");
+		numScore = atlas.findRegions("numScore");
 	}
 
 	static public void loadTexture() {

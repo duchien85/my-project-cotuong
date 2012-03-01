@@ -11,6 +11,7 @@ import chess.logic.game.piece.Piece.ETargetType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.FadeOut;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.chess.asset.ChessTexture;
@@ -55,7 +56,7 @@ public class BoardGroup extends Group implements ClickListener {
 	}
 
 	private void addSuggestAnQuan(int row, int col) {
-		Image tmp = new Image(ChessTexture.effectJustMove);
+		Image tmp = new Image(ChessTexture.effectAnQuan);
 		scaleContent(tmp);
 		putCell(tmp, row, col);
 		addActor(tmp);
@@ -164,12 +165,12 @@ public class BoardGroup extends Group implements ClickListener {
 		addActor(justMoveEff);
 		justMoveEff.visible = false;
 
-		chieuEff = new Image(ChessTexture.effectJustMove);
+		chieuEff = new Image(ChessTexture.effectChieuTuong);
 		scaleContent(chieuEff);
 		addActor(chieuEff);
 		chieuEff.visible = false;
 
-		camChieuEff = new Image(ChessTexture.effectJustMove);
+		camChieuEff = new Image(ChessTexture.signX);
 		scaleContent(camChieuEff);
 		addActor(camChieuEff);
 		chieuEff.visible = false;
@@ -198,7 +199,7 @@ public class BoardGroup extends Group implements ClickListener {
 		case CHUA_CHON:
 			break;
 		case DA_CHON:
-			if (logic.checkPlayerMovePiece(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col) == ETargetType.e_DI_DUOC) {
+			if (logic.canMovePiece(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col) == ETargetType.e_DI_DUOC) {
 				moveChess(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col);
 			}
 			break;
@@ -245,7 +246,7 @@ public class BoardGroup extends Group implements ClickListener {
 		return -1;
 	}
 
-	private void effectChieuTuong() {
+	private void effectChieuTuong() {		
 		int chieu = checkChieuTuong();
 		if (chieu < 0)
 			chieuEff.visible = false;
@@ -253,6 +254,11 @@ public class BoardGroup extends Group implements ClickListener {
 			GsnPiece general = findPieceByID(chieu, GENERAL_ID);
 			chieuEff.visible = true;
 			putCell(chieuEff, general.logic.iRow, general.logic.iCol);
+			
+			Image chieuImg = new Image(ChessTexture.redGeneral);;
+			ActorUtility.setCenter(chieuImg, width / 2, height / 2);
+			addActor(chieuImg);
+			chieuImg.action(FadeOut.$(1.5f));
 		}
 	}
 
@@ -279,10 +285,10 @@ public class BoardGroup extends Group implements ClickListener {
 					addSuggest(row, col);
 				break;
 			case e_CAM_CHIEU3:
+				Gdx.app.log(tag, "Effect Cam Chieu 3 ----------");
 				effectCamChieu(row, col);
 				break;
-			}
-			effectCamChieu(2, 4);
+			}			
 		}
 	}
 }
