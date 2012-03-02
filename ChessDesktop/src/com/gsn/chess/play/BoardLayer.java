@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.gsn.chess.asset.ChessTexture;
-import com.gsn.chess.asset.CommonTexture;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.myplay.GsnLayer;
 
@@ -22,8 +21,7 @@ public class BoardLayer extends GsnLayer implements ClickListener{
 
 	public BoardLayer(PlayScreen parent, float width, float height) {
 		super(width, height);
-		this.parent = parent;
-		
+		this.parent = parent;		
 		Image betIcon = new Image(ChessTexture.betIcon1000);
 		ActorUtility.setRatio(betIcon, 0, 1, 0, height);
 
@@ -80,7 +78,7 @@ public class BoardLayer extends GsnLayer implements ClickListener{
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
 		case Keys.F1:
-			clockOne.otherTurn();
+			
 			break;
 		case Keys.F2:
 			clockOne.nextTurn();

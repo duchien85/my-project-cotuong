@@ -2,8 +2,8 @@ package com.vng.chess;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.gsn.chess.game.ChessGame;
+import com.gsn.chess.game.MyChess;
 import com.gsn.engine.myplay.GsnGame;
-import com.gsn.engine.myplay.GsnMyPlay;
 
 public class Desktop {
 
@@ -25,11 +25,14 @@ public class Desktop {
 	}
 	
 	public static void binder(){
-		GsnMyPlay a;
+		MyChess.game = game;
 	}
 	
+	static ChessGame game;
+	
 	public static void createGame(int width, int height) {
-		GsnGame game = new ChessGame();		
+		game  = new ChessGame();
+		binder();
 		new LwjglApplication(game, "My Caro", width, height, false);		
 	}
 

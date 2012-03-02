@@ -1,11 +1,8 @@
 package com.gsn.chess.game;
 
-import javax.xml.crypto.Data;
-
 import com.badlogic.gdx.Gdx;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.asset.CommonTexture;
-import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.lobby.LobbyScreen;
 import com.gsn.chess.play.PlayScreen;
 import com.gsn.engine.myplay.GsnGame;
@@ -20,9 +17,7 @@ public class ChessGame extends GsnGame {
 	}
 
 	@Override
-	public void create() {
-		DataProvider.game = this;
-		
+	public void create() {				
 		ChessTexture.create();
 		ChessTexture.loadAll();
 		
