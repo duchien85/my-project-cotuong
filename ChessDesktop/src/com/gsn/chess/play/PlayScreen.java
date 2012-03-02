@@ -14,9 +14,9 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 	static final String DLG_QUIT = "quit";
 	static final String DLG_OTHER_QUIT = "other quit";
 
-	BoardLayer boardLayer;
-	LobbyLayer lobbyLayer;
-	GsnDialogYesNoLayer dialogLayer;
+	public BoardLayer boardLayer;
+	public LobbyLayer lobbyLayer;
+	public GsnDialogYesNoLayer dialogLayer;
 
 	public PlayScreen(float width, float height) {
 		super(width, height);

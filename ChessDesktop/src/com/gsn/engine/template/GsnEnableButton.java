@@ -13,20 +13,15 @@ public class GsnEnableButton extends GsnNormalButton {
 	public GsnEnableButton(int id, String name, TextureRegion normal, TextureRegion down, TextureRegion disable) {
 		super(name, normal, down, normal);
 		enableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, normal, down, normal);
-
-		if (disable != null) {
-			disableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, disable, disable, disable);
-		}
+		disableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, disable, disable, disable);
+		
 		this.id = id;
 	}
 
 	public GsnEnableButton(int id, String name,TextureRegion normal, TextureRegion down, TextureRegion check, TextureRegion disable) {
 		super(name, normal, down, check);
 		enableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, normal, down, check);
-
-		if (disable != null) {
-			disableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, disable, disable, disable);
-		}
+		disableState = new ImageButtonStyle(null, null, null, 0, 0, 0, 0, disable, disable, disable);		
 		this.id = id;
 	}
 

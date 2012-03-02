@@ -19,7 +19,7 @@ import com.gsn.engine.ActorUtility;
 
 public class BoardGroup extends Group implements ClickListener {
 	enum State {
-		CHUA_CHON, DA_CHON
+		CHUA_BAT_DAU, CHUA_CHON, DA_CHON
 	}
 
 	public static final String tag = "Board Group";
@@ -44,7 +44,10 @@ public class BoardGroup extends Group implements ClickListener {
 	public BoardGroup(float width, float height) {
 		this.width = width;
 		this.height = height;
-		newGame(0);
+		initBoardBg();
+		
+		logic = new CoTuongLogic();
+		logic.initNewGame(0);
 	}
 
 	private void addSuggest(int row, int col) {
@@ -80,10 +83,11 @@ public class BoardGroup extends Group implements ClickListener {
 			GsnPiece piece = (GsnPiece) actor;
 			Gdx.app.log(tag, "click piece : " + piece.logic.pieceType + " owner : " + piece.logic.ownerID + " id : " + piece.logic.pieceID);
 			switch (state) {
+			case CHUA_BAT_DAU:				
+				break;
 			case CHUA_CHON:
-				if (logic.getCurrentTurnID() == piece.logic.ownerID) {
+				if (logic.getCurrentTurnID() == piece.logic.ownerID)
 					selectMyPiece(piece);
-				}
 				break;
 			case DA_CHON:
 				if (logic.getCurrentTurnID() == piece.logic.ownerID)
@@ -104,30 +108,8 @@ public class BoardGroup extends Group implements ClickListener {
 		camChieuEff.visible = true;
 		putCell(camChieuEff, row, col);
 	}
-
-	private void initBoard() {
-		pieceList.clear();
-		for (int i = 0; i < 2; i++) {
-			Piece[] pieceArr = logic.playerPM[i].Pieces;
-			for (int j = 0; j < pieceArr.length; j++) {
-				GsnPiece piece = GsnPiece.createPiece(pieceArr[j]);
-				if (piece != null) {
-					pieceList.add(piece);
-					addActor(piece);
-					piece.setClickListener(this);
-					scaleContent(piece);
-					putCell(piece, piece.logic.iRow, piece.logic.iCol);
-				}
-			}
-		}
-
-	}
-
-	void newGame(int firstTurn) {
-		logic = new CoTuongLogic();
-		logic.initNewGame(firstTurn);
-
-		clear();
+	
+	public void initBoardBg(){
 		state = State.CHUA_CHON;
 		float boardWidth = 0.9f * width;
 		float boardHeight = 0.9f * height;
@@ -147,8 +129,32 @@ public class BoardGroup extends Group implements ClickListener {
 
 		addActor(boardBG);
 		addActor(board);
+	}
 
-		initBoard();		
+	public void initBoardPiece() {
+		pieceList.clear();
+		for (int i = 0; i < 2; i++) {
+			Piece[] pieceArr = logic.playerPM[i].Pieces;
+			for (int j = 0; j < pieceArr.length; j++) {
+				GsnPiece piece = GsnPiece.createPiece(pieceArr[j]);
+				if (piece != null) {
+					pieceList.add(piece);
+					addActor(piece);
+					piece.setClickListener(this);
+					scaleContent(piece);
+					putCell(piece, piece.logic.iRow, piece.logic.iCol);
+				}
+			}
+		}
+	}
+
+	public void startGame(int firstTurn) {
+		logic = new CoTuongLogic();
+		logic.initNewGame(firstTurn);
+		
+		clear();
+		initBoardBg();
+		initBoardPiece();		
 
 		selectEff = new Image(ChessTexture.effectSelect);
 		scaleContent(selectEff);

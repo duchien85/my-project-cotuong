@@ -29,7 +29,7 @@ public class ChessGame extends GsnGame {
 		lobbyScreen = new LobbyScreen(width, height);		
 		playScreen = new PlayScreen(width, height);
 		
-		setScreen(playScreen);		
+		setScreen(lobbyScreen);		
 	}
 
 	@Override
@@ -54,5 +54,21 @@ public class ChessGame extends GsnGame {
 	public void resume() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void otherJoin() {
+		playScreen.boardLayer.otherJoin();		
+	}
+	
+	public void otherReady(){
+		
+	}
+	
+	public void startGame(int first){
+		playScreen.boardLayer.startGame(first);
+	}
+
+	public void otherQuit() {
+		playScreen.showQuitOtherDlg();		
 	}
 }

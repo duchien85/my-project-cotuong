@@ -13,6 +13,6 @@ public class LobbyScreen extends GsnScreen {
 	@Override
 	public void setInputListener() {
 		setInputLayer(lobbyLayer);		
-	}
+	}	
 
 }
