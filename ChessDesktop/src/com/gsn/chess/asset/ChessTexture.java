@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver.Resolution;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
@@ -54,6 +55,9 @@ public class ChessTexture {
 	public static List<AtlasRegion> numClock1;
 	public static List<AtlasRegion> numClock2;
 	public static AtlasRegion haicham;
+	
+	public static BitmapFont fontLarge;
+	public static BitmapFont fontMedium;
 
 	static public void create() {
 		Resolution[] resolutions = { new Resolution(240, 320, "240320")};
@@ -80,6 +84,9 @@ public class ChessTexture {
 	}
 
 	public static void assignContent() {
+		fontMedium = manager.get("chess/font/medium.fnt", BitmapFont.class);				
+		fontLarge = manager.get("chess/font/large.fnt", BitmapFont.class);
+		
 		TextureAtlas atlas = manager.get("chess/content/pack", TextureAtlas.class);
 		board = atlas.findRegion("board");
 		boardBG = atlas.findRegion("boardBG");
@@ -127,7 +134,8 @@ public class ChessTexture {
 
 	static public void loadTexture() {
 		manager.load("chess/content/pack", TextureAtlas.class);
-		//manager.load("common/font/medium.fnt", BitmapFont.class);		
+		manager.load("chess/font/medium.fnt", BitmapFont.class);		
+		manager.load("chess/font/large.fnt", BitmapFont.class);
 	}
 
 	static public boolean update() {

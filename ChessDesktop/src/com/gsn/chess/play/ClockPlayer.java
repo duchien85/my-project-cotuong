@@ -50,7 +50,10 @@ public class ClockPlayer extends Group {
 	}
 	
 	public void nextTurn(){
-		turnClock.reset();
+		float tmp = gameClock.remainTime;
+		tmp = tmp - (int)tmp;
+		//turnClock.reset();
+		turnClock.remainTime = turnClock.standardTime + tmp;
 		resume();
 	}
 }

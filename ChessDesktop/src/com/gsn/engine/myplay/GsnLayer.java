@@ -31,8 +31,7 @@ public class GsnLayer extends Stage implements Comparable<GsnLayer> {
 		return (int) (ratio * width);
 	}
 
-	public void setInputListener() {
-		System.out.println("set input layer");
+	public void setInputListener() {		
 		Gdx.input.setInputProcessor(this);
 	}
 

@@ -34,6 +34,6 @@ public class Desktop {
 	}
 
 	public static void main(String[] args) {
-		createGame(1);
+		createGame(2);
 	}
 }

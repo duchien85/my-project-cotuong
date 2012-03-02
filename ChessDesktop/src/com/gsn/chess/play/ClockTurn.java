@@ -29,7 +29,7 @@ public class ClockTurn extends Group {
 		String str = time.toString();
 		for (int i = 0; i < str.length(); i++){			
 			Image tmp = new Image((TextureRegion) (nums.get(str.charAt(i) - '0')));
-			tmp.color.set(1, 0, 0, 1);
+			tmp.color.set(0.7f, 0.7f, 0.2f, 1);
 			tmp.x = group.width;
 			group.width += tmp.width;
 			group.addActor(tmp);
@@ -51,10 +51,11 @@ public class ClockTurn extends Group {
 		setTime(time);
 	}
 	
-	public void setTime(int time){
+	public void setTime(float time){
 		if (number != null)
 			number.remove();
-		number = convertNum(time);
+		remainTime = time;
+		number = convertNum((int)time);
 		ActorUtility.setCenter(number, width / 2, height / 2);
 		addActor(number);		
 	}
@@ -70,7 +71,7 @@ public class ClockTurn extends Group {
 			remainTime -= delta;
 			if (remainTime < 0)
 				remainTime = 0;
-			setTime((int)remainTime);
+			setTime(remainTime);
 		}
 	}
 	

@@ -28,7 +28,7 @@ public abstract class Piece {
         clear();
     }
     
-    public boolean camChieu3;
+    public boolean camChieu3 = false;
     public int camRow;
     public int camCol;
     

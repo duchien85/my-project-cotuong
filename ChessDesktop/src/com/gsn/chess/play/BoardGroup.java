@@ -148,12 +148,7 @@ public class BoardGroup extends Group implements ClickListener {
 		addActor(boardBG);
 		addActor(board);
 
-		initBoard();
-
-		Image img = new Image(ChessTexture.effectJustMove);
-		img.x = -20;
-		img.y = -20;
-		addActor(img);
+		initBoard();		
 
 		selectEff = new Image(ChessTexture.effectSelect);
 		scaleContent(selectEff);
@@ -173,7 +168,7 @@ public class BoardGroup extends Group implements ClickListener {
 		camChieuEff = new Image(ChessTexture.signX);
 		scaleContent(camChieuEff);
 		addActor(camChieuEff);
-		chieuEff.visible = false;
+		camChieuEff.visible = false;
 	}
 
 	private void putCell(Actor actor, int row, int column) {
