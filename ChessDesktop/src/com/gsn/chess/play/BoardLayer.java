@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.asset.CommonTexture;
 import com.gsn.chess.game.MyChess;
+import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.myplay.GsnLayer;
 
@@ -27,6 +28,9 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 
 	ImageButton readyBtn;
 	Image startEffect;
+	Image winEffect;
+	Image loseEffect;
+	Image drawEffect;
 
 	public BoardLayer(PlayScreen parent, float width, float height) {
 		super(width, height);
@@ -69,18 +73,35 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		readyBtn.visible = false;
 		readyBtn.setClickListener(this);
 		
-		startEffect = new Image(CommonTexture.startEffect.get(0));
+		startEffect = new Image(CommonTexture.bet100_1);
 		ActorUtility.setCenter(startEffect, width / 2, height / 2);		
-
+		startEffect.color.a = 0;
+		
+		winEffect = new Image(CommonTexture.bet100_2);
+		ActorUtility.setCenter(winEffect, width / 2, height / 2);		
+		winEffect.color.a = 0;
+		
+		loseEffect = new Image(CommonTexture.bet100_3);
+		ActorUtility.setCenter(loseEffect, width / 2, height / 2);		
+		loseEffect.color.a = 0;
+		
+		drawEffect = new Image(CommonTexture.bet100_4);
+		ActorUtility.setCenter(drawEffect, width / 2, height / 2);		
+		drawEffect.color.a = 0;
+		
 		addActor(boardGroup);
 		addActor(quitBtn);
 		addActor(betIcon);
 		addActor(chatBtn);
 		addActor(clockOne);
 		addActor(clockTwo);
-		addActor(scoreGroup);
+		addActor(scoreGroup);		
 
-		addActor(readyBtn);		
+		addActor(readyBtn);	
+		addActor(startEffect);
+		addActor(winEffect);
+		addActor(loseEffect);
+		addActor(drawEffect);
 		// Image test = new Image(ChessTexture.numScore.get(0));
 		// addActor(test);
 	}
@@ -102,6 +123,16 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 			break;
 		case Keys.F3:
 			MyChess.game.otherQuit();
+			break;
+		case Keys.F4:
+			MyChess.game.win();
+			break;
+		case Keys.F5:
+			MyChess.game.lose();
+			break;
+		case Keys.F6:
+			MyChess.game.draw();
+			break;
 		}
 		return super.keyDown(keycode);
 	}
@@ -114,7 +145,8 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 			parent.showQuitOtherDlg();
 		else if (actor == readyBtn){
 			Gdx.app.log(tag, "click Ready");
-			readyBtn.visible = false;		
+			readyBtn.visible = false;	
+			MyChess.client.send(PacketFactory.createReady());
 		}
 	}
 
@@ -126,9 +158,26 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	public void startGame(int firstTurn) {
 		Gdx.app.log(tag, "start game");
 		boardGroup.startGame(firstTurn);
-		addActor(startEffect);
 		startEffect.color.a = 1;
-		startEffect.action(Sequence.$(FadeOut.$(1.5f), Remove.$()));
-		
+		startEffect.action(Sequence.$(FadeOut.$(1.5f)));		
+	}
+	
+	public void win(){
+		winEffect.color.a = 1;
+		winEffect.action(Sequence.$(FadeOut.$(1.5f)));
+	}
+	
+	public void lose(){
+		loseEffect.color.a = 1;
+		loseEffect.action(Sequence.$(FadeOut.$(1.5f)));
+	}
+	
+	public void draw(){
+		drawEffect.color.a = 1;
+		drawEffect.action(Sequence.$(FadeOut.$(1.5f)));
+	}
+
+	public void move(int turn, int fromRow, int fromCol, int toRow, int toCol) {		
+		boardGroup.moveChess(turn, fromRow, fromCol, toRow, toCol);
 	}	
 }

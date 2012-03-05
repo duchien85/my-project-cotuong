@@ -15,6 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.actions.FadeOut;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.chess.asset.ChessTexture;
+import com.gsn.chess.asset.DataProvider;
+import com.gsn.chess.game.MyChess;
+import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.ActorUtility;
 
 public class BoardGroup extends Group implements ClickListener {
@@ -201,7 +204,20 @@ public class BoardGroup extends Group implements ClickListener {
 			break;
 		case DA_CHON:
 			if (logic.canMovePiece(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col) == ETargetType.e_DI_DUOC) {
+				int fromRow = selectPiece.logic.iRow;
+				int fromCol = selectPiece.logic.iCol;
+				int toRow = row;
+				int toCol = col;
+				if (MyChess.game.reserve){
+					fromRow = 9 - fromRow;
+					fromCol = 8 - fromCol;
+					toRow = 9 - toRow;
+					toCol = 8 - toCol;
+				}
+				
+				MyChess.client.send(PacketFactory.createMove(fromRow, fromCol, toRow, toCol));
 				moveChess(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col);
+				
 			}
 			break;
 		}
@@ -291,5 +307,11 @@ public class BoardGroup extends Group implements ClickListener {
 				break;
 			}			
 		}
+	}
+
+	public void moveChess(int turn, int fromRow, int fromCol, int toRow, int toCol) {
+		GsnPiece p = findPieceByPos(fromRow, fromCol);
+		selectPiece = p;
+		moveChess(turn, p.logic.pieceID, toRow, toCol);		
 	}
 }

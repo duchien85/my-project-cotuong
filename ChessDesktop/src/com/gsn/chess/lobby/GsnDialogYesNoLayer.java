@@ -73,14 +73,14 @@ public class GsnDialogYesNoLayer extends GsnLayer implements ClickListener{
 
 	@Override
 	public void click(Actor actor, float x, float y) {
+		hide();
 		if (listener != null){
 			if (actor == yesBtn)
 				listener.clickButton(name, EButtonType.YES);
 			else if (actor == noBtn)
 				listener.clickButton(name, EButtonType.NO);
 		} else 
-			Gdx.app.log("Dialog ", "chua set Listener Dialog");
-		hide();
+			Gdx.app.log("Dialog ", "chua set Listener Dialog");		
 	}
 	
 	public InputProcessor oldInput;

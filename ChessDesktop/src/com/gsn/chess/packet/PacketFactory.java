@@ -7,7 +7,7 @@ public class PacketFactory {
 	private static JSONObject create() {
 		JSONObject json = new JSONObject();
 		try {
-			json.put("ext", "caro");
+			json.put("ext", "cc");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -16,13 +16,29 @@ public class PacketFactory {
 		return json;
 	}
 
-	public static JSONObject createChat(String s) {
+	public static JSONObject createGUI() {
+		JSONObject json = create();
+		JSONObject params = new JSONObject();
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.CMD_GET_INFO);
+			json.put(CmdDefine.PARAMS, params);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}	
+
+	public static JSONObject createQuickPlay(int betLv) {
+		// 100, 500, 5000
 		try {
-			JSONObject json = create().put(CmdDefine.CMD, CmdDefine.CHAT);
-			JSONObject params = new JSONObject().put("message", s);
+			JSONObject json = create().put(CmdDefine.CMD, CmdDefine.CMD_INSTANT_PLAY);
+			JSONObject params = new JSONObject().put("active", true);			
+			params.put("bet", betLv);
 			json.put(CmdDefine.PARAMS, params);
 			return json;
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -30,24 +46,8 @@ public class PacketFactory {
 
 	public static JSONObject createLogin(String session) {
 		try {
-			JSONObject json = create().put(CmdDefine.CMD, CmdDefine.LOGIN);
-			JSONObject params = new JSONObject().put("username", session);
-			json.put(CmdDefine.PARAMS, params);
-			return json;
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-
-	public static JSONObject createMobileLog(String device, String system, String place, String name) {
-		try {
-			JSONObject json = create().put(CmdDefine.CMD, CmdDefine.INFO);
-			JSONObject params = new JSONObject().put("device", device);
-			params.put("system", system);
-			params.put("place", place);
-			params.put("name", name);
+			JSONObject json = create().put(CmdDefine.CMD, CmdDefine.CMD_CUSTOM_LOGIN);
+			JSONObject params = new JSONObject().put("sessionKey", session);
 			json.put(CmdDefine.PARAMS, params);
 			return json;
 		} catch (JSONException e) {
@@ -56,13 +56,28 @@ public class PacketFactory {
 		}
 	}
 
-	public static JSONObject createMove(int turn, int cell) {
+	public static JSONObject createReady() {
 		JSONObject json = create();
 		JSONObject params = new JSONObject();
-		try {
-			params.put("whoseTurn", turn);
-			params.put("cell", cell);
-			json.put(CmdDefine.CMD, CmdDefine.CHESS_MOVE);
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.CMD_READY);
+			json.put(CmdDefine.PARAMS, params);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	public static JSONObject createMove(int fromRow, int fromCol, int toRow, int toCol) {	
+		JSONObject json = create();
+		JSONObject params = new JSONObject();
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.CMD_CHESS_MOVE);
+			params.put("fromRow", fromRow);
+			params.put("fromCol", fromCol);
+			params.put("toRow", toRow);
+			params.put("toCol", toCol);
 			json.put(CmdDefine.PARAMS, params);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -72,58 +87,15 @@ public class PacketFactory {
 	}
 
 	public static JSONObject createOutRoom() {
-		try {
-			return create().put(CmdDefine.CMD, CmdDefine.OUT_ROOM);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static JSONObject createQuickPlay(int betLv) {
-		// 100, 500, 5000
-		try {
-			JSONObject json = create().put(CmdDefine.CMD, CmdDefine.INSTANCE_PLAY);
-			JSONObject params = new JSONObject().put("active", true);
-			params.put("type", "gold");
-			params.put("betLv", betLv);
+		JSONObject json = create();
+		JSONObject params = new JSONObject();
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.CMD_OUT_ROOM);
 			json.put(CmdDefine.PARAMS, params);
-			return json;
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static JSONObject createQuickPlay(int betLv, int betType) {
-		// 100, 500, 5000
-		try {
-			JSONObject json = create().put(CmdDefine.CMD, CmdDefine.INSTANCE_PLAY);
-			JSONObject params = new JSONObject().put("active", true);
-			if (betType == Constant.BET_GOLD)
-				params.put("type", "gold");
-			else if (betType == Constant.BET_COIN)
-				params.put("type", "xu");
-			params.put("betLv", betLv);
-			// params.put("betType", betType);
-			json.put(CmdDefine.PARAMS, params);
-			return json;
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static JSONObject createReady() {
-		try {
-			return create().put(CmdDefine.CMD, CmdDefine.GAME_READY);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+		} catch (JSONException e) {			
 			e.printStackTrace();
 		}
-		return null;
+		return json;
 	}
+	
 }

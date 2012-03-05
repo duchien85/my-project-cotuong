@@ -219,7 +219,7 @@ public class MercuryClient {
 
 	private void read(SocketChannel socketChannel) throws Exception {
 		// TODO Auto-generated method stub
-
+		
 		// Clear the buffer and read bytes from socket
 		buf.clear();
 		int numBytesRead = socketChannel.read(buf);
@@ -239,6 +239,7 @@ public class MercuryClient {
 			buf.get(dst);
 			buf.clear();
 			String s = new String(dst);
+			//System.out.println("read client : " + s);
 			if (listener != null) {
 				listener.onReceived(s);
 				String[] arr = s.split("\0");
@@ -275,7 +276,7 @@ public class MercuryClient {
 		String s = queue.poll();
 		if (s == null)
 			return;
-		// System.out.println("write : " + s);
+		System.out.println("send : " + s);
 
 		// Fill the buffer with the bytes to write;
 		// see Putting Bytes into a ByteBuffer
