@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import com.badlogic.gdx.Gdx;
 import com.gsn.chess.asset.ChessTexture;
-import com.gsn.chess.asset.CommonTexture;
 import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.loading.LoadingAsset;
 import com.gsn.chess.loading.LoadingScreen;

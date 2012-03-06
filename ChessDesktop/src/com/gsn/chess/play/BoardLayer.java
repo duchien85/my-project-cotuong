@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.gsn.chess.asset.ChessTexture;
-import com.gsn.chess.asset.CommonTexture;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.ActorUtility;
@@ -80,24 +79,24 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		boardGroup = new BoardGroup(width, height - heightBottom - heightTop - 2 * pad);
 		boardGroup.y = heightBottom + pad;
 
-		readyBtn = new ImageButton(CommonTexture.readyButton, CommonTexture.readyButtonClick);
+		readyBtn = new ImageButton(ChessTexture.readyButton, ChessTexture.readyButtonDown);
 		ActorUtility.setCenter(readyBtn, width / 2, height / 2);
 		readyBtn.visible = false;
 		readyBtn.setClickListener(this);
 		
-		startEffect = new Image(CommonTexture.bet100_1);
+		startEffect = new Image(ChessTexture.effectBatDau);
 		ActorUtility.setCenter(startEffect, width / 2, height / 2);		
 		startEffect.color.a = 0;
 		
-		winEffect = new Image(CommonTexture.bet100_2);
+		winEffect = new Image(ChessTexture.effectThang);
 		ActorUtility.setCenter(winEffect, width / 2, height / 2);		
 		winEffect.color.a = 0;
 		
-		loseEffect = new Image(CommonTexture.bet100_3);
+		loseEffect = new Image(ChessTexture.effectThua);
 		ActorUtility.setCenter(loseEffect, width / 2, height / 2);		
 		loseEffect.color.a = 0;
 		
-		drawEffect = new Image(CommonTexture.bet100_4);
+		drawEffect = new Image(ChessTexture.effectHoa);
 		ActorUtility.setCenter(drawEffect, width / 2, height / 2);		
 		drawEffect.color.a = 0;
 		

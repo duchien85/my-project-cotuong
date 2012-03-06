@@ -213,14 +213,14 @@ sansangBtn
   orig: 142, 54
   offset: 0, 0
   index: -1
-font
+effect bat dau
   rotate: false
   xy: 841, 324
   size: 157, 47
   orig: 157, 47
   offset: 0, 0
   index: -1
-font
+icon san sang
   rotate: false
   xy: 364, 387
   size: 128, 41
@@ -654,149 +654,156 @@ bubbleChatTrai
   orig: 21, 11
   offset: 0, 0
   index: 5
-numberClock1
+hai cham
   rotate: false
   xy: 351, 733
+  size: 4, 11
+  orig: 4, 11
+  offset: 0, 0
+  index: -1
+numberClock1
+  rotate: false
+  xy: 351, 746
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 9
-numberClock1
-  rotate: false
-  xy: 351, 745
-  size: 9, 10
-  orig: 9, 10
-  offset: 0, 0
-  index: 8
 numberClock1
   rotate: false
   xy: 92, 986
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
-  index: 7
+  index: 8
 numberClock1
   rotate: false
   xy: 92, 998
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
-  index: 6
+  index: 7
 numberClock1
   rotate: false
   xy: 92, 1010
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
-  index: 5
+  index: 6
 numberClock1
   rotate: false
   xy: 347, 824
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
-  index: 3
+  index: 5
 numberClock1
   rotate: false
   xy: 347, 836
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
-  index: 2
+  index: 3
 numberClock1
   rotate: false
   xy: 347, 848
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
-  index: 0
+  index: 2
 numberClock1
   rotate: false
   xy: 342, 896
+  size: 9, 10
+  orig: 9, 10
+  offset: 0, 0
+  index: 0
+numberClock1
+  rotate: false
+  xy: 353, 896
   size: 8, 10
   orig: 8, 10
   offset: 0, 0
   index: 4
 numberClock2
   rotate: false
-  xy: 352, 896
+  xy: 342, 908
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 9
 numberClock2
   rotate: false
-  xy: 342, 908
+  xy: 351, 908
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 8
 numberClock2
   rotate: false
-  xy: 351, 908
+  xy: 342, 920
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 6
 numberClock2
   rotate: false
-  xy: 342, 920
+  xy: 351, 920
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 3
 numberClock2
   rotate: false
-  xy: 351, 920
+  xy: 342, 932
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 0
 numberClock1
   rotate: false
-  xy: 102, 944
+  xy: 357, 733
   size: 5, 10
   orig: 5, 10
   offset: 0, 0
   index: 1
 numberClock2
   rotate: false
-  xy: 342, 932
+  xy: 351, 932
   size: 8, 9
   orig: 8, 9
   offset: 0, 0
   index: 4
 numberClock2
   rotate: false
-  xy: 352, 932
+  xy: 342, 944
   size: 7, 9
   orig: 7, 9
   offset: 0, 0
   index: 7
 numberClock2
   rotate: false
-  xy: 342, 943
+  xy: 351, 944
   size: 7, 9
   orig: 7, 9
   offset: 0, 0
   index: 5
 numberClock2
   rotate: false
-  xy: 351, 943
+  xy: 342, 955
   size: 7, 9
   orig: 7, 9
   offset: 0, 0
   index: 2
 numberClock2
   rotate: false
-  xy: 102, 956
+  xy: 102, 944
   size: 5, 9
   orig: 5, 9
   offset: 0, 0
   index: 1
 numberClock2
   rotate: false
-  xy: 351, 757
+  xy: 351, 758
   size: 3, 7
   orig: 3, 7
   offset: 0, 0

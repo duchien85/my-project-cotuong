@@ -2,7 +2,6 @@ package com.gsn.chess.loading;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.chess.asset.ChessTexture;
-import com.gsn.chess.asset.CommonTexture;
 import com.gsn.chess.game.ChessGame;
 import com.gsn.engine.myplay.GsnLayer;
 
@@ -38,10 +37,7 @@ public class LoadingLayer extends GsnLayer {
 	@Override
 	public void act(float delta) {
 		// TODO Auto-generated method stub
-		super.act(delta);
-		
-		CommonTexture.create();
-		CommonTexture.loadAll();
+		super.act(delta);		
 		
 		if (!assignContent) {
 			if (ChessTexture.update()) {

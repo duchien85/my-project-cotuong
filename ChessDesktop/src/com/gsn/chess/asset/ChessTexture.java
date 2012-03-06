@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 
 public class ChessTexture {
 	static public final String tag = "Chess Texture";
@@ -58,6 +60,32 @@ public class ChessTexture {
 	
 	public static BitmapFont fontLarge;
 	public static BitmapFont fontMedium;
+	public static AtlasRegion background;
+	public static AtlasRegion bet1000_1;
+	public static AtlasRegion bet1000_2;
+	public static AtlasRegion bet1000_3;
+	public static AtlasRegion bet1000_4;
+	
+	public static AtlasRegion bet5000_1;
+	public static AtlasRegion bet5000_2;
+	public static AtlasRegion bet5000_3;
+	public static AtlasRegion bet5000_4;
+	public static AtlasRegion quickPlayBtn;
+	public static AtlasRegion quickPlayBtnDown;
+	public static AtlasRegion quickPlayBtnDisable;
+	public static AtlasRegion readyButton;
+	public static AtlasRegion readyButtonDown;
+	public static AtlasRegion effectBatDau;
+	public static AtlasRegion effectThang;
+	public static AtlasRegion effectThua;
+	public static AtlasRegion effectHoa;
+	
+	public static AtlasRegion greyBG;
+	public static AtlasRegion yesBtn;
+	public static AtlasRegion yesBtnDown;
+	public static AtlasRegion cancelBtnDown;
+	public static AtlasRegion cancelBtn;
+	public static AtlasRegion dialogBg;
 
 	static public void create() {
 		Resolution[] resolutions = { new Resolution(240, 320, "240320")};
@@ -88,6 +116,14 @@ public class ChessTexture {
 		fontLarge = manager.get("chess/font/large.fnt", BitmapFont.class);
 		
 		TextureAtlas atlas = manager.get("chess/content/pack", TextureAtlas.class);
+	
+		yesBtn = atlas.findRegion("dongyBtn");
+		yesBtnDown = atlas.findRegion("dongyBtnDown");
+		cancelBtn = atlas.findRegion("huyboBnt");
+		cancelBtnDown = atlas.findRegion("huyboBntDown");
+		dialogBg = atlas.findRegion("notice board");	
+		greyBG = atlas.findRegion("BgAlpha");
+		background = atlas.findRegion("BG240x320new"); 
 		board = atlas.findRegion("board");
 		boardBG = atlas.findRegion("boardBG");
 		redCavarly = atlas.findRegion("do ma");
@@ -105,11 +141,16 @@ public class ChessTexture {
 		blueElephant = atlas.findRegion("xanh tuongj");
 		blueRook = atlas.findRegion("xanh xe");
 		blueGeneral = atlas.findRegion("xanh tuongs");
-		effectSelect = atlas.findRegion("effect Chon");
-		effectJustMove = atlas.findRegion("effect vua di");
+		
+		effectSelect = atlas.findRegion("effect chon");
+		effectJustMove = atlas.findRegion("effect vua di");		
 		effectSuggest = atlas.findRegion("goi y");
 		effectAnQuan = atlas.findRegion("effect an");
-		effectChieuTuong = atlas.findRegion("effect chieu tuong");
+		effectBatDau = atlas.findRegion("effect bat dau");
+		effectThang = atlas.findRegion("effect thang");
+		effectHoa = atlas.findRegion("effect hoa");
+		effectThua = atlas.findRegion("effect thua");
+		effectChieuTuong = atlas.findRegion("effect an");
 		signX = atlas.findRegion("dau x");
 		
 		betIcon1000 = atlas.findRegion("beticon1000");
@@ -130,6 +171,26 @@ public class ChessTexture {
 		numClock1 = atlas.findRegions("numberClock1");
 		numClock2 = atlas.findRegions("numberClock2");
 		numScore = atlas.findRegions("numScore");
+		
+		bet1000_1 = atlas.findRegion("muc cuoc 1k");
+		bet1000_2 = atlas.findRegion("muc cuoc 1k an");
+		bet1000_3 = atlas.findRegion("muc cuoc 1k chon");
+		bet1000_4 = atlas.findRegion("muc cuoc 1k disable");
+		
+		bet5000_1 = atlas.findRegion("muc cuoc 5k");
+		bet5000_2 = atlas.findRegion("muc cuoc 5k an");
+		bet5000_3 = atlas.findRegion("muc cuoc 5k chon");
+		bet5000_4 = atlas.findRegion("muc cuoc 5k disable");
+		
+		quickPlayBtn = atlas.findRegion("xinthuaBtn");
+		quickPlayBtnDown = atlas.findRegion("xinthuaBtn invi");
+		quickPlayBtnDisable = atlas.findRegion("xinthuaBtnDown");
+		
+		readyButton = atlas.findRegion("sansangBtn");
+		readyButtonDown = atlas.findRegion("sansangBtnDown");
+		
+		effectBatDau = atlas.findRegion("effect bat dau");
+	
 	}
 
 	static public void loadTexture() {

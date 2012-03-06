@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.gsn.chess.asset.CommonTexture;
+import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.packet.PacketFactory;
@@ -26,14 +26,14 @@ public class LobbyLayer extends GsnLayer implements ClickListener {
 
 	public void init() {
 		clear();
-		Image bg = new Image(CommonTexture.backgroundLobby);
+		Image bg = new Image(ChessTexture.background);
 		bg.width = width;
 		bg.height = height;
 		addActor(bg);
 
-		bet1000 = new GsnEnableButton(1000, "quick play", CommonTexture.bet100_1, CommonTexture.bet100_2, CommonTexture.bet100_3, CommonTexture.bet100_4);
-		bet5000 = new GsnEnableButton(5000, "quick play", CommonTexture.bet500_1, CommonTexture.bet500_2, CommonTexture.bet500_3, CommonTexture.bet500_4);
-		quickPlayBtn = new GsnEnableButton(1, "", CommonTexture.enterRoom, CommonTexture.enterRoomClick, CommonTexture.enterRoomDisable);
+		bet1000 = new GsnEnableButton(1000, "quick play", ChessTexture.bet1000_1, ChessTexture.bet1000_2, ChessTexture.bet1000_3, ChessTexture.bet1000_4);
+		bet5000 = new GsnEnableButton(5000, "quick play", ChessTexture.bet5000_1, ChessTexture.bet5000_2, ChessTexture.bet5000_3, ChessTexture.bet5000_4);
+		quickPlayBtn = new GsnEnableButton(1, "", ChessTexture.quickPlayBtn, ChessTexture.quickPlayBtnDown, ChessTexture.quickPlayBtnDisable);
 		bet1000.setAndSaveClickListener(this);
 		bet1000.setChecked(true);
 		bet5000.setAndSaveClickListener(this);
