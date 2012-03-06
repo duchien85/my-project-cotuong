@@ -33,7 +33,6 @@ public class Ping {
 	private long kq = -1;
 
 	private IPingListener listener;
-	private byte[] pingByte;
 
 	private int port;
 
@@ -46,8 +45,7 @@ public class Ping {
 		ByteBuffer pingBuf = ByteBuffer.allocate(2);
 		pingBuf.clear();
 		pingBuf.putShort((short) 65535);
-		pingBuf.flip();
-		pingByte = pingBuf.array();
+		pingBuf.flip();		
 	}
 
 	public void loopPing(final int period, final int timeout) {

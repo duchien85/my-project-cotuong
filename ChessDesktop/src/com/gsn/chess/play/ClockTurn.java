@@ -29,7 +29,7 @@ public class ClockTurn extends Group {
 		String str = time.toString();
 		for (int i = 0; i < str.length(); i++){			
 			Image tmp = new Image((TextureRegion) (nums.get(str.charAt(i) - '0')));
-			tmp.color.set(0.7f, 0.7f, 0.2f, 1);
+			//tmp.color.set(0.7f, 0.7f, 0.2f, 1);
 			tmp.x = group.width;
 			group.width += tmp.width;
 			group.addActor(tmp);

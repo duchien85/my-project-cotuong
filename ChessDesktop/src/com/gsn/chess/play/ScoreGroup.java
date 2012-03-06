@@ -63,17 +63,17 @@ public class ScoreGroup extends Group {
 	
 	private Group convertNum(Integer time){
 		Group group = new Group();
-		group.height = nums.get(0).getRegionHeight();
-		String str = time.toString();		
-//		if (time < 10)
-//			str = '0' + str;
-		for (int i = 0; i < str.length(); i++){			
-			Image tmp = new Image((TextureRegion) (nums.get(str.charAt(i) - '0')));
-		//	tmp.color.set(1, 0, 0, 1);
-			tmp.x = group.width;
-			group.width += tmp.width;
-			group.addActor(tmp);
-		}
+//		group.height = nums.get(0).getRegionHeight();
+//		String str = time.toString();		
+////		if (time < 10)
+////			str = '0' + str;
+//		for (int i = 0; i < str.length(); i++){			
+//			Image tmp = new Image((TextureRegion) (nums.get(str.charAt(i) - '0')));
+//		//	tmp.color.set(1, 0, 0, 1);
+//			tmp.x = group.width;
+//			group.width += tmp.width;
+//			group.addActor(tmp);
+//		}
 		return group;
 	}	
 }

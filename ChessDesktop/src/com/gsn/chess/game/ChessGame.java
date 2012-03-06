@@ -94,7 +94,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 
 	@Override
 	public void onDisconnected() {
-		// TODO Auto-generated method stub
+		Gdx.app.log(tag, "mercury disconnect");
 
 	}
 
@@ -140,8 +140,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 			case CmdDefine.CMD_READY:
 				otherReady();
 				break;
-			case CmdDefine.CMD_START:
-				
+			case CmdDefine.CMD_START:				
 				int next = json.getInt("next");
 				//int below = json.getInt("below");
 				int above = json.getInt("above");
@@ -222,10 +221,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 	}
 
 	public void onFinishLoading() {	
-		LoadingAsset.unload();
-				
-		CommonTexture.create();
-		CommonTexture.loadAll();
+		LoadingAsset.unload();		
 	
 		lobbyScreen = new LobbyScreen(width, height);
 		playScreen = new PlayScreen(width, height);

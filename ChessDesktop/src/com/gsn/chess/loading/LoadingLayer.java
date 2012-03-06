@@ -2,6 +2,7 @@ package com.gsn.chess.loading;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.chess.asset.ChessTexture;
+import com.gsn.chess.asset.CommonTexture;
 import com.gsn.chess.game.ChessGame;
 import com.gsn.engine.myplay.GsnLayer;
 
@@ -23,8 +24,7 @@ public class LoadingLayer extends GsnLayer {
 		Image loadingText = new Image(LoadingAsset.loadingText);
 
 		loadingText.x = width - loadingText.width - getRatioWidth(0.1f);
-		loadingText.y = getRatioHeight(0f);
-		System.out.println("fkdj");
+		loadingText.y = getRatioHeight(0f);		
 		this.addActor(loadingText);
 		added = true;
 		for (int i = 0; i < 3; i++) {
@@ -39,6 +39,10 @@ public class LoadingLayer extends GsnLayer {
 	public void act(float delta) {
 		// TODO Auto-generated method stub
 		super.act(delta);
+		
+		CommonTexture.create();
+		CommonTexture.loadAll();
+		
 		if (!assignContent) {
 			if (ChessTexture.update()) {
 				ChessTexture.assignContent();

@@ -127,7 +127,7 @@ public class ChessTexture {
 		scoreBG = atlas.findRegion("scoreBG");		
 		haicham = atlas.findRegion("hai cham");
 		
-		numClock1 = atlas.findRegions("numberClock");
+		numClock1 = atlas.findRegions("numberClock1");
 		numClock2 = atlas.findRegions("numberClock2");
 		numScore = atlas.findRegions("numScore");
 	}

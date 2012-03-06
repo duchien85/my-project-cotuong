@@ -62,7 +62,7 @@ public class MercuryClient {
 				ex.printStackTrace();
 			}
 			try {
-				if (listener != null && !stop)
+				if (listener != null)
 					listener.onDisconnected();
 				sChannel.close();
 				selector.close();
