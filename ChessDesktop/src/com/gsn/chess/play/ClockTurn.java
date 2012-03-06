@@ -62,6 +62,7 @@ public class ClockTurn extends Group {
 	
 	public void reset(){
 		remainTime = standardTime;
+		setTime(remainTime);
 	}
 	
 	@Override

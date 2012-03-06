@@ -19,7 +19,9 @@ public class ClockPlayer extends Group {
 		this.width = clockGame.width * 0.95f + clockTurn.height;
 		
 		turnClock.startTime(timeTurn);
+		turnClock.pause();
 		gameClock.startTime(timeGame);
+		turnClock.pause();
 		switch (type){
 		case 0:			
 			ActorUtility.setRatio(turnClock, 1f, 0f, width, 0);
@@ -55,5 +57,10 @@ public class ClockPlayer extends Group {
 		//turnClock.reset();
 		turnClock.remainTime = turnClock.standardTime + tmp;
 		resume();
+	}
+	
+	public void reset(){
+		gameClock.reset();
+		turnClock.reset();
 	}
 }

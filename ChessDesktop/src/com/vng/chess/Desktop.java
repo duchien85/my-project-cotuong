@@ -4,7 +4,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.gsn.chess.game.ChessGame;
 import com.gsn.chess.game.MyChess;
 import com.gsn.engine.mercurry.MercuryClient;
-import com.gsn.engine.myplay.GsnGame;
 
 public class Desktop {
 

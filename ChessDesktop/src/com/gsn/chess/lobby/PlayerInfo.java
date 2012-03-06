@@ -12,6 +12,7 @@ public class PlayerInfo {
 	public int win;
 	public int lose;
 	public int draw;	
+	public int gold;
 	
 	public PlayerInfo() {	
 	}
@@ -24,6 +25,7 @@ public class PlayerInfo {
 			else
 				username = json.getString("name");
 			avatar = json.getString("avatar");
+			gold = json.getInt("gold");
 			exp = json.getInt("exp");
 			win = json.getInt("win");
 			lose = json.getInt("lose");

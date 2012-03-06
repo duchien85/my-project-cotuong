@@ -1,10 +1,12 @@
 package com.gsn.chess.play;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.FadeOut;
-import com.badlogic.gdx.scenes.scene2d.actions.Remove;
 import com.badlogic.gdx.scenes.scene2d.actions.Sequence;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -20,8 +22,9 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	public static final String tag = "Board Layer";
 	BoardGroup boardGroup;
 	float time = 0;
+	float timeEffect = 1.5f;
 	ClockPlayer clockOne;
-	private ClockPlayer clockTwo;
+	ClockPlayer clockTwo;
 	PlayScreen parent;
 	ImageButton quitBtn;
 	ImageButton chatBtn;
@@ -35,6 +38,13 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	public BoardLayer(PlayScreen parent, float width, float height) {
 		super(width, height);
 		this.parent = parent;
+		init();
+//		 Image test = new Image(ChessTexture.numScore.get(0));
+//		 addActor(test);
+	}
+	
+	public void init(){
+		clear();
 		Image betIcon = new Image(ChessTexture.betIcon1000);
 		ActorUtility.setRatio(betIcon, 0, 1, 0, height);
 
@@ -49,10 +59,12 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		ClockTurn clockTurn = new ClockTurn(ChessTexture.clock1green, ChessTexture.numClock1);
 		ClockGame clockGame = new ClockGame(ChessTexture.clock2green, ChessTexture.numClock2, ChessTexture.haicham);
 		clockOne = new ClockPlayer(0, clockTurn, clockGame, 120, 1800);
+		clockOne.pause();
 
 		clockTurn = new ClockTurn(ChessTexture.clock1red, ChessTexture.numClock1);
 		clockGame = new ClockGame(ChessTexture.clock2red, ChessTexture.numClock2, ChessTexture.haicham);
 		clockTwo = new ClockPlayer(1, clockTurn, clockGame, 120, 1800);
+		clockTwo.pause();
 
 		ScoreGroup scoreGroup = new ScoreGroup(ChessTexture.scoreBG, ChessTexture.numScore);
 		scoreGroup.x = 100;
@@ -102,15 +114,8 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		addActor(winEffect);
 		addActor(loseEffect);
 		addActor(drawEffect);
-		// Image test = new Image(ChessTexture.numScore.get(0));
-		// addActor(test);
 	}
-
-	@Override
-	public void act(float delta) {
-		time += delta;
-		super.act(delta);
-	}
+	
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -125,13 +130,13 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 			MyChess.game.otherQuit();
 			break;
 		case Keys.F4:
-			MyChess.game.win();
+			MyChess.game.win(0);
 			break;
 		case Keys.F5:
-			MyChess.game.lose();
+			MyChess.game.lose(0);
 			break;
 		case Keys.F6:
-			MyChess.game.draw();
+			MyChess.game.draw(0);
 			break;
 		}
 		return super.keyDown(keycode);
@@ -159,25 +164,86 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		Gdx.app.log(tag, "start game");
 		boardGroup.startGame(firstTurn);
 		startEffect.color.a = 1;
-		startEffect.action(Sequence.$(FadeOut.$(1.5f)));		
+		startEffect.action(Sequence.$(FadeOut.$(timeEffect)));
+		clockOne.reset();
+		clockTwo.reset();
 	}
 	
-	public void win(){
-		winEffect.color.a = 1;
-		winEffect.action(Sequence.$(FadeOut.$(1.5f)));
+	public void delayEffect(final Image effect, final float delay, final int canContinue){
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {			
+				effect.color.a = 1;
+				effect.action(Sequence.$(FadeOut.$(timeEffect)));
+				if (canContinue == 0)
+					appearReady(timeEffect);
+				
+			}
+		}, (int)(delay * 1000));
 	}
 	
-	public void lose(){
-		loseEffect.color.a = 1;
-		loseEffect.action(Sequence.$(FadeOut.$(1.5f)));
+	public void youWin(int canContinue){	
+		if (boardGroup.chieu >= 0){
+			Gdx.app.log(tag, " DELAY EFFECT");
+			delayEffect(winEffect, timeEffect, canContinue);
+		}
+		else
+			delayEffect(winEffect, 0, canContinue);
+		clockOne.pause();
+		clockTwo.pause();				
 	}
 	
-	public void draw(){
-		drawEffect.color.a = 1;
-		drawEffect.action(Sequence.$(FadeOut.$(1.5f)));
+	public void youLose(int canContinue){
+		if (boardGroup.chieu >= 0){
+			Gdx.app.log(tag, " DELAY EFFECT");
+			delayEffect(loseEffect, timeEffect, canContinue);
+		}
+		else
+			delayEffect(loseEffect, 0, canContinue);
+		clockOne.pause();
+		clockTwo.pause();			
 	}
-
+		
+	
+	public void youDraw(int canContinue){
+		if (boardGroup.chieu >= 0){
+			Gdx.app.log(tag, " DELAY EFFECT");
+			delayEffect(drawEffect, timeEffect, canContinue);
+		}
+		else
+			delayEffect(drawEffect, 0, canContinue);
+		clockOne.pause();
+		clockTwo.pause();
+		
+	}
+	
+	public void appearReady(float delay){
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {				
+				readyBtn.visible = true;
+				
+			}
+		}, (int)(delay * 1000));
+	}
+	
 	public void move(int turn, int fromRow, int fromCol, int toRow, int toCol) {		
 		boardGroup.moveChess(turn, fromRow, fromCol, toRow, toCol);
+	}
+
+
+	public void nextTurn(int turn) {
+		if (turn == 0){
+			clockOne.nextTurn();
+			clockTwo.otherTurn();
+		} else {
+			clockOne.otherTurn();
+			clockTwo.nextTurn();
+		}
+		
 	}	
 }

@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.gsn.chess.asset.CommonTexture;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.myplay.GsnLayer;
 import com.gsn.engine.template.GsnCustomDialog;

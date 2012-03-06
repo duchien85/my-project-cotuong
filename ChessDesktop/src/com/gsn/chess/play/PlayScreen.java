@@ -3,9 +3,8 @@ package com.gsn.chess.play;
 import com.badlogic.gdx.Gdx;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer;
-import com.gsn.chess.lobby.GsnDialogYesNoLayer.EDialogType;
-import com.gsn.chess.lobby.LobbyLayer;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.EButtonType;
+import com.gsn.chess.lobby.GsnDialogYesNoLayer.EDialogType;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.IDialogYesNoListener;
 import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.myplay.GsnScreen;
@@ -62,6 +61,7 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 	public void onShowScreen() {
 		// TODO Auto-generated method stub
 		super.onShowScreen();
+		boardLayer.init();
 	}
 
 }

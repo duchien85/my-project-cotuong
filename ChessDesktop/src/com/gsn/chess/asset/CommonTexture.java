@@ -8,7 +8,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver.Resolution;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -282,7 +281,7 @@ public class CommonTexture {
 				Gdx.app.error(tag, "couldn't load asset '" + fileName + "'", (Exception) throwable);
 			}
 		});
-		Texture.setAssetManager(manager);
+		//Texture.setAssetManager(manager);
 	}
 
 	static public void finishLoading() {

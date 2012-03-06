@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.FadeOut;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.chess.asset.ChessTexture;
-import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.ActorUtility;
@@ -25,6 +24,7 @@ public class BoardGroup extends Group implements ClickListener {
 		CHUA_BAT_DAU, CHUA_CHON, DA_CHON
 	}
 
+	final int myId = 0;
 	public static final String tag = "Board Group";
 	public static int GENERAL_ID = 15;
 	Image board;
@@ -34,6 +34,7 @@ public class BoardGroup extends Group implements ClickListener {
 	Image chieuEff;
 	Image camChieuEff;
 	CoTuongLogic logic;
+	Image chieuImg;
 
 	float longCell;
 	float scale;
@@ -48,7 +49,7 @@ public class BoardGroup extends Group implements ClickListener {
 		this.width = width;
 		this.height = height;
 		initBoardBg();
-		
+
 		logic = new CoTuongLogic();
 		logic.initNewGame(0);
 	}
@@ -86,14 +87,14 @@ public class BoardGroup extends Group implements ClickListener {
 			GsnPiece piece = (GsnPiece) actor;
 			Gdx.app.log(tag, "click piece : " + piece.logic.pieceType + " owner : " + piece.logic.ownerID + " id : " + piece.logic.pieceID);
 			switch (state) {
-			case CHUA_BAT_DAU:				
+			case CHUA_BAT_DAU:
 				break;
 			case CHUA_CHON:
-				if (logic.getCurrentTurnID() == piece.logic.ownerID)
+				if (logic.getCurrentTurnID() == myId && logic.getCurrentTurnID() == piece.logic.ownerID)
 					selectMyPiece(piece);
 				break;
 			case DA_CHON:
-				if (logic.getCurrentTurnID() == piece.logic.ownerID)
+				if (logic.getCurrentTurnID() == myId && logic.getCurrentTurnID() == piece.logic.ownerID)
 					selectMyPiece(piece);
 				else
 					selectCell(piece.logic.iRow, piece.logic.iCol);
@@ -111,8 +112,8 @@ public class BoardGroup extends Group implements ClickListener {
 		camChieuEff.visible = true;
 		putCell(camChieuEff, row, col);
 	}
-	
-	public void initBoardBg(){
+
+	public void initBoardBg() {
 		state = State.CHUA_CHON;
 		float boardWidth = 0.9f * width;
 		float boardHeight = 0.9f * height;
@@ -154,10 +155,10 @@ public class BoardGroup extends Group implements ClickListener {
 	public void startGame(int firstTurn) {
 		logic = new CoTuongLogic();
 		logic.initNewGame(firstTurn);
-		
+
 		clear();
 		initBoardBg();
-		initBoardPiece();		
+		initBoardPiece();
 
 		selectEff = new Image(ChessTexture.effectSelect);
 		scaleContent(selectEff);
@@ -178,6 +179,11 @@ public class BoardGroup extends Group implements ClickListener {
 		scaleContent(camChieuEff);
 		addActor(camChieuEff);
 		camChieuEff.visible = false;
+		
+		chieuImg = new Image(ChessTexture.redGeneral);
+		ActorUtility.setCenter(chieuImg, width / 2, height / 2);
+		addActor(chieuImg);
+		chieuImg.color.a = 0f;
 	}
 
 	private void putCell(Actor actor, int row, int column) {
@@ -208,16 +214,16 @@ public class BoardGroup extends Group implements ClickListener {
 				int fromCol = selectPiece.logic.iCol;
 				int toRow = row;
 				int toCol = col;
-				if (MyChess.game.reserve){
+				if (MyChess.game.reserve) {
 					fromRow = 9 - fromRow;
 					fromCol = 8 - fromCol;
 					toRow = 9 - toRow;
 					toCol = 8 - toCol;
 				}
-				
+
 				MyChess.client.send(PacketFactory.createMove(fromRow, fromCol, toRow, toCol));
 				moveChess(logic.getCurrentTurnID(), selectPiece.logic.pieceID, row, col);
-				
+
 			}
 			break;
 		}
@@ -253,6 +259,7 @@ public class BoardGroup extends Group implements ClickListener {
 		logic.startNewTurn();
 		effectJustMove(row, col);
 		effectChieuTuong();
+		MyChess.game.nextTurn(logic.getCurrentTurnID());
 	}
 
 	private int checkChieuTuong() {
@@ -262,19 +269,18 @@ public class BoardGroup extends Group implements ClickListener {
 			return 1;
 		return -1;
 	}
+	
+	int chieu = -1;
 
-	private void effectChieuTuong() {		
-		int chieu = checkChieuTuong();
+	private void effectChieuTuong() {
+		chieu = checkChieuTuong();
 		if (chieu < 0)
 			chieuEff.visible = false;
 		else {
 			GsnPiece general = findPieceByID(chieu, GENERAL_ID);
 			chieuEff.visible = true;
-			putCell(chieuEff, general.logic.iRow, general.logic.iCol);
-			
-			Image chieuImg = new Image(ChessTexture.redGeneral);;
-			ActorUtility.setCenter(chieuImg, width / 2, height / 2);
-			addActor(chieuImg);
+			putCell(chieuEff, general.logic.iRow, general.logic.iCol);			
+			chieuImg.color.a = 1f;
 			chieuImg.action(FadeOut.$(1.5f));
 		}
 	}
@@ -305,13 +311,13 @@ public class BoardGroup extends Group implements ClickListener {
 				Gdx.app.log(tag, "Effect Cam Chieu 3 ----------");
 				effectCamChieu(row, col);
 				break;
-			}			
+			}
 		}
 	}
 
 	public void moveChess(int turn, int fromRow, int fromCol, int toRow, int toCol) {
 		GsnPiece p = findPieceByPos(fromRow, fromCol);
 		selectPiece = p;
-		moveChess(turn, p.logic.pieceID, toRow, toCol);		
+		moveChess(turn, p.logic.pieceID, toRow, toCol);
 	}
 }
