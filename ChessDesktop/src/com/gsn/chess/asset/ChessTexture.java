@@ -48,8 +48,8 @@ public class ChessTexture {
 	public static AtlasRegion signX;
 	public static AtlasRegion effectAnQuan;
 	public static AtlasRegion effectChieuTuong;
-	public static AtlasRegion quitBtn;
-	public static AtlasRegion quitBtnDown;
+	public static AtlasRegion settingBtn;
+	public static AtlasRegion settingBtnDown;
 	public static AtlasRegion scoreBG;
 	public static List<AtlasRegion> numScore;
 	public static List<AtlasRegion> numClock1;
@@ -118,8 +118,8 @@ public class ChessTexture {
 		chatBtnDown = atlas.findRegion("chatBtnDown");
 		
 		
-		quitBtn = atlas.findRegion("quitBtn");
-		quitBtnDown = atlas.findRegion("quitBtnDown");
+		settingBtn = atlas.findRegion("settingBtn");
+		settingBtnDown = atlas.findRegion("settingBtnDown");
 		clock1green = atlas.findRegion("clock1green");
 		clock2green = atlas.findRegion("clock2green");
 		clock1red = atlas.findRegion("clock1red");

@@ -26,7 +26,7 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	ClockPlayer clockOne;
 	ClockPlayer clockTwo;
 	PlayScreen parent;
-	ImageButton quitBtn;
+	ImageButton settingBtn;
 	ImageButton chatBtn;
 
 	ImageButton readyBtn;
@@ -48,12 +48,12 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		Image betIcon = new Image(ChessTexture.betIcon1000);
 		ActorUtility.setRatio(betIcon, 0, 1, 0, height);
 
-		quitBtn = new ImageButton(ChessTexture.quitBtn, ChessTexture.quitBtnDown);
-		ActorUtility.setRatio(quitBtn, 1, 1, width, height);
-		quitBtn.setClickListener(this);
+		settingBtn = new ImageButton(ChessTexture.settingBtn, ChessTexture.settingBtnDown);
+		ActorUtility.setRatio(settingBtn, 1, 1, width, height);
+		settingBtn.setClickListener(this);
 
 		chatBtn = new ImageButton(ChessTexture.chatBtn, ChessTexture.chatBtnDown);
-		ActorUtility.setRatio(chatBtn, 1, 0, quitBtn.x, quitBtn.y);
+		ActorUtility.setRatio(chatBtn, 1, 0, settingBtn.x, settingBtn.y);
 		chatBtn.setClickListener(this);
 
 		ClockTurn clockTurn = new ClockTurn(ChessTexture.clock1green, ChessTexture.numClock1);
@@ -102,7 +102,7 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		drawEffect.color.a = 0;
 		
 		addActor(boardGroup);
-		addActor(quitBtn);
+		addActor(settingBtn);
 		addActor(betIcon);
 		addActor(chatBtn);
 		addActor(clockOne);
@@ -144,7 +144,7 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 
 	@Override
 	public void click(Actor actor, float x, float y) {
-		if (actor == quitBtn)
+		if (actor == settingBtn)
 			parent.showQuitDialog();
 		else if (actor == chatBtn)
 			parent.showQuitOtherDlg();
