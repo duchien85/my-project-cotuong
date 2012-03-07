@@ -14,6 +14,7 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 
 	static final String DLG_QUIT = "quit";
 	static final String DLG_OTHER_QUIT = "other quit";
+	static final String DLG_CANT_CONNECT = "cant connect";
 
 	public BoardLayer boardLayer;	
 	public GsnDialogYesNoLayer dialogLayer;
@@ -43,6 +44,8 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 			} else if (nameDlg.equals(DLG_OTHER_QUIT)){
 				Gdx.app.log(tag, "OTHER QUIT");
 				MyChess.game.setLobbyScreen();
+			} else if (nameDlg.equals(DLG_CANT_CONNECT)){
+				Gdx.app.log(tag, "yes cant connect");
 			}
 		}
 	}
@@ -53,15 +56,19 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 	}
 
 	public void showQuitOtherDlg() {
-		dialogLayer.createDialog(EDialogType.YES, DLG_OTHER_QUIT, "Doi thu cua ban da thoat khoi phong!!");
+		dialogLayer.createDialog(EDialogType.YES, DLG_OTHER_QUIT, "Đối thủ của bạn đã thoát khỏi phòng!!");
 		dialogLayer.show();
 	}
 	
 	@Override
 	public void onShowScreen() {
-		// TODO Auto-generated method stub
 		super.onShowScreen();
 		boardLayer.init();
+	}
+
+	public void showCantConnect() {
+		dialogLayer.createDialog(EDialogType.YES_NO, DLG_CANT_CONNECT, "Mất kết nối!!\n Bạn có muốn thử lại?");
+		dialogLayer.show();
 	}
 
 }

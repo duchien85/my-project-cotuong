@@ -1,5 +1,9 @@
 package com.gsn.engine.template;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -47,5 +51,26 @@ public class GsnCustomDialog extends Group {
 		
 		ActorUtility.setCenter(contentLabel, width / 2, height / 1.7f);
 				
+	}
+	
+	public static void main(String[] args) throws JSONException {
+		String s = "{\"DATA\":[[1,1,\"United States\",\"Alabama\",1],[1,2,\"United States\",\"Alaska\",1],[1,3,\"United States\",\"Arizona\",1]],\"COLUMNS\":[\"COUNTRY_ID\",\"STATE_ID\",\"COUNTRY_NAME\",\"STATE_NAME\",\"COUNTRY_DEFAULT_COUNTRY_ID\"]}";
+		System.out.println(s);
+		JSONObject json = new JSONObject(s);
+		JSONArray data = json.getJSONArray("DATA");
+		System.out.println("-----DATA: ");
+		for (int i = 0; i < data.length(); i++){
+			System.out.print(" phan tu thu " + i + ": [");
+			JSONArray arr = data.getJSONArray(i);
+			for (int j = 0; j < data.length(); j++){
+				System.out.print( arr.get(j)  + ", " );
+			}
+			System.out.println("]");
+		}
+		System.out.println("-----COLUMN: ");
+		JSONArray column = json.getJSONArray("COLUMNS");
+		for (int i = 0; i < column.length(); i++){
+			System.out.print( column.get(i)  + ", " );
+		}
 	}
 }

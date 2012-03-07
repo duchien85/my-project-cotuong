@@ -17,9 +17,9 @@ import com.gsn.engine.mercurry.MercuryClient.IMercuryListener;
 import com.gsn.engine.myplay.GsnGame;
 
 public class ChessGame extends GsnGame implements IMercuryListener {
-	LobbyScreen lobbyScreen;
-	PlayScreen playScreen;
-	LoadingScreen loadingScreen;
+	public LobbyScreen lobbyScreen;
+	public PlayScreen playScreen;
+	public LoadingScreen loadingScreen;
 	float width;
 	float height;
 	static String tag = "Chess game";
@@ -85,15 +85,21 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 	}
 
 	@Override
-	public void onConnected() {
-		// TODO Auto-generated method stub
-		session = "1F0189885E5AB41EF7EE03F2";
+	public void onConnected() {		
+		session = "1F018988DE18E19D7E76A709";
+		//session = "1F018988DE18E1";		
 		MyChess.client.send(PacketFactory.createLogin(session));
 	}
 
 	@Override
 	public void onDisconnected() {
 		Gdx.app.log(tag, "mercury disconnect");
+		if (currentScreen == lobbyScreen){
+			lobbyScreen.showCantConnect();
+		} else if (currentScreen == playScreen){
+			setLobbyScreen();
+			lobbyScreen.showCantConnect();
+		}
 
 	}
 
@@ -112,6 +118,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 					MyChess.client.send(PacketFactory.createGUI());
 				} else {
 					Gdx.app.log(tag, "loginOK failure");
+					lobbyScreen.showLoginFailure();
 				}
 				return;
 			}
@@ -121,8 +128,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 				JSONObject pinfo = json.getJSONObject("pInfo");
 				PlayerInfo info = new PlayerInfo(pinfo);
 				DataProvider.myInfo = info;				
-				System.out.println(" day ne :  " + info.id + " " + info.avatar);
-				loadingScreen.loadingLayer.connected = true;
+				lobbyScreen.lobbyLayer.setUserInfo(); 				
 				break;	
 			case CmdDefine.CMD_JOIN_ROOM:
 				JSONArray users = json.getJSONArray("users");
@@ -226,6 +232,11 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 		playScreen = new PlayScreen(width, height);
 		
 		setLobbyScreen();
+		MyChess.client.connect();
+	}
 
+	@Override
+	public void onException(Exception ex) {		
+		Gdx.app.log(tag, "loi mercury : ", ex);
 	}	
 }

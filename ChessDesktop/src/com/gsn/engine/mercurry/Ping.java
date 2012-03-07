@@ -15,7 +15,7 @@ public class Ping {
 
 	static long last = System.currentTimeMillis();
 	public static void main(String[] args) throws InterruptedException {
-		Ping p = new Ping("10.198.48.114", 443, new IPingListener() {
+		Ping p = new Ping("118.102.3.7", 443, new IPingListener() {
 
 			@Override
 			public void onPing(long time) {
@@ -48,14 +48,14 @@ public class Ping {
 		pingBuf.flip();		
 	}
 
-	public void loopPing(final int period, final int timeout) {
-
+	public void loopPing(final int period, final int timeout) {		
+		timerPing = new Timer();
 		timerPing.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				System.out.println("ping...");
+			//	System.out.println("ping...");
 				try {
 					ping(timeout);
 				} catch (Exception e) {

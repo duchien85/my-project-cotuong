@@ -26,6 +26,6 @@ public class ChessService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		binder = new ChessBinder();
-		client = new MercuryClient("120.138.65.118", 443, MyChess.game);
+		client = new MercuryClient(MyChess.server, 443, MyChess.game);
 	}
 }

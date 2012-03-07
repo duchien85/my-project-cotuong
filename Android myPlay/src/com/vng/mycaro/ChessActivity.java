@@ -12,6 +12,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.gsn.chess.game.ChessGame;
 import com.gsn.chess.game.MyChess;
+import com.gsn.engine.DownloaderAndroid;
 import com.vng.mycaro.ChessService.ChessBinder;
 
 public class ChessActivity extends AndroidApplication {    
@@ -27,8 +28,9 @@ public class ChessActivity extends AndroidApplication {
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			Log.i(tag, "on Connect Service");			
 			ChessBinder binder = (ChessBinder) service;
-			MyChess.client = binder.client;			
-			MyChess.client.connect();
+			MyChess.client = binder.client;						
+			MyChess.client.downloader = new DownloaderAndroid();
+			MyChess.client.downloader.cacheDir = getCacheDir();
 		}
 	};
 	

@@ -2,14 +2,13 @@ package com.gsn.engine;
 
 import java.io.File;
 
-public class ImageFactory {
-	public static interface IImageFactoryListener {
-		void onError(Exception e);
+import com.badlogic.gdx.Gdx;
 
-		void onFinishLoading(File outFile);
-	}
-	public static void saveBitmapToFileAsync(final String link, final int width, final int height, final File cacheDir, final String localPath, final IImageFactoryListener listener) {
-		
+public class DownloadDesktop extends IDowloader{
+	public File cacheDir;
+	public void saveBitmapToFileAsync(String id, final String link, final int width, final int height, final String localPath, final IImageFactoryListener listener) {
+		File outFile = Gdx.files.internal("tmp/avatar.png").file();
+		listener.onFinishLoading(id, outFile);
 	}
 
 //	public static void saveBitmapToFile(String link, int width, int height, int quality, OutputStream out) {

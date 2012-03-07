@@ -1,5 +1,11 @@
 package com.gsn.chess.lobby;
 
+import java.io.File;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
@@ -9,22 +15,30 @@ import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.ActorUtility;
+import com.gsn.engine.IDowloader.IImageFactoryListener;
 import com.gsn.engine.layout.GsnTableLayout;
 import com.gsn.engine.myplay.GsnLayer;
 import com.gsn.engine.template.GsnEnableButton;
 
-public class LobbyLayer extends GsnLayer implements ClickListener {
+public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactoryListener {
 	GsnEnableButton bet1000;
 	GsnEnableButton bet5000;
 	GsnEnableButton quickPlayBtn;
 	int select = 1000;
+	
+	Image greyBG;
+	Image noticeImg;
+	
+	String tag = "Lobby Layer";
 
+	File avatarFile = null;
+	
 	public LobbyLayer(float width, float height) {
 		super(width, height);
 		init();
 	}
-
-	public void init() {
+	
+	public void init(){
 		clear();
 		Image bg = new Image(ChessTexture.background);
 		bg.width = width;
@@ -38,15 +52,7 @@ public class LobbyLayer extends GsnLayer implements ClickListener {
 		bet1000.setChecked(true);
 		bet5000.setAndSaveClickListener(this);
 		quickPlayBtn.setAndSaveClickListener(this);
-
-		if (DataProvider.myInfo.gold < 1000 * 2) {
-			bet1000.setEnable(false);
-			quickPlayBtn.setEnable(false);
-		}
-
-		if (DataProvider.myInfo.gold < 5000 * 2)
-			bet5000.setEnable(false);
-
+		
 		float pad = 20;
 		GsnTableLayout table = new GsnTableLayout(0, 0, width, bet1000.height + quickPlayBtn.height + 2 * pad);
 
@@ -65,8 +71,34 @@ public class LobbyLayer extends GsnLayer implements ClickListener {
 
 		ActorUtility.setCenter(group, width / 2, height / 2);
 		addActor(group);
+		
+		greyBG = new Image(ChessTexture.greyBG);
+		greyBG.width = width;
+		greyBG.height = height;
+		greyBG.setClickListener(this);
+		
+		noticeImg = new Image(ChessTexture.waitingNotice);
+		ActorUtility.setCenter(noticeImg, width / 2, height / 2);
+		
+		addActor(greyBG);
+		addActor(noticeImg);
 	}
 
+	
+	public void setUserInfo(){
+		if (DataProvider.myInfo.gold < 1000 * 2) {
+			bet1000.setEnable(false);
+			quickPlayBtn.setEnable(false);
+		}
+
+		if (DataProvider.myInfo.gold < 5000 * 2)
+			bet5000.setEnable(false);
+		greyBG.remove();
+		noticeImg.remove();
+		
+		MyChess.client.downloader.saveBitmapToFileAsync("me", DataProvider.myInfo.avatar, 64, 64, "haha", this);
+	}	
+	
 	@Override
 	public void click(Actor actor, float x, float y) {
 		if (actor instanceof GsnEnableButton) {
@@ -85,5 +117,42 @@ public class LobbyLayer extends GsnLayer implements ClickListener {
 			}
 
 		}
+	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		switch (keycode){
+		case Keys.F1:
+			MyChess.game.lobbyScreen.showCantConnect();
+			break;
+		case Keys.F2:
+			Gdx.app.log(tag, "init");
+			MyChess.game.lobbyScreen.lobbyLayer.init();
+			break;
+		}
+		return super.keyDown(keycode);
+	}
+
+	@Override
+	public void onError(Exception e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFinishLoading(String id, File outFile) {
+		avatarFile = outFile;		
+	}
+	
+	@Override
+	public void act(float delta) {
+		if (avatarFile != null){
+			Gdx.app.log(tag, avatarFile.getAbsolutePath());
+			Texture texture = new Texture(new FileHandle(avatarFile));
+			Image avatar = new Image(texture);
+			addActor(avatar);
+			avatarFile = null;
+		}
+		super.act(delta);
 	}
 }

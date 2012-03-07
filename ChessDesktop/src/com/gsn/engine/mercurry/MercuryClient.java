@@ -12,7 +12,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.json.JSONObject;
 
-public class MercuryClient {
+import com.gsn.engine.IDowloader;
+import com.gsn.engine.mercurry.Ping.IPingListener;
+
+public class MercuryClient implements IPingListener{
 	public interface IMercuryListener {
 		void onConnected();
 
@@ -21,7 +24,11 @@ public class MercuryClient {
 		void onReceived(String s);
 
 		void onReceivedJson(JSONObject json);
+
+		void onException(Exception ex);
 	}
+	
+	Ping ping;
 
 	private class MyThread implements Runnable {
 		@Override
@@ -59,6 +66,8 @@ public class MercuryClient {
 					// TODO Auto-generated catch block
 				}
 			} catch (Exception ex) {
+				if (listener != null)
+					listener.onException(ex);
 				ex.printStackTrace();
 			}
 			try {
@@ -113,6 +122,13 @@ public class MercuryClient {
 				// TODO Auto-generated method stub
 				System.out.println("receive JSON: " + json);
 			}
+
+			@Override
+			public void onException(Exception ex) {
+				// TODO Auto-generated method stub
+				System.out.println("exception mercury : " );
+				ex.printStackTrace();
+			}
 		});
 		m.connect();
 		while (true)
@@ -141,6 +157,7 @@ public class MercuryClient {
 		this.listener = listener;
 		this.host = host;
 		this.port = port;
+		this.ping = new Ping(host, port, this);
 	}
 
 	public void connect() {
@@ -148,6 +165,8 @@ public class MercuryClient {
 		thread = new Thread(new MyThread());
 		thread.setDaemon(true);
 		thread.start();
+		ping.loopPing(1500, 1500);
+		timeoutNum = 0;
 	}
 
 	private byte[] convertToBytes(String s) throws Exception {
@@ -173,6 +192,7 @@ public class MercuryClient {
 	}
 
 	public void disconnect() {
+		ping.stop();
 		if (stop)
 			return;
 		stop = true;
@@ -182,7 +202,7 @@ public class MercuryClient {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 
 	public void processSelectionKey(SelectionKey selKey) throws Exception {
@@ -288,4 +308,23 @@ public class MercuryClient {
 		int numBytesWritten = socketChannel.write(buf);
 		buf.clear();
 	}
+	
+	int timeoutNum = 0;
+	
+	@Override
+	public void onPing(long time) {
+	//	System.out.println("ping : " + time);
+		if (time >= 0){
+			timeoutNum = 0;
+		} else {
+			timeoutNum++;
+			if (timeoutNum >= 3){
+				disconnect();				
+			}
+		}		
+	}
+	
+	
+	
+	public IDowloader downloader;
 }

@@ -3,6 +3,7 @@ package com.vng.chess;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.gsn.chess.game.ChessGame;
 import com.gsn.chess.game.MyChess;
+import com.gsn.engine.DownloadDesktop;
 import com.gsn.engine.mercurry.MercuryClient;
 
 public class Desktop {
@@ -26,8 +27,8 @@ public class Desktop {
 	
 	public static void binder(){
 		MyChess.game = game;
-		MyChess.client = new MercuryClient("120.138.65.118", 443, game);
-		MyChess.client.connect();
+		MyChess.client = new MercuryClient(MyChess.server, 443, game);		
+		MyChess.client.downloader = new DownloadDesktop();
 	}
 	
 	static ChessGame game;

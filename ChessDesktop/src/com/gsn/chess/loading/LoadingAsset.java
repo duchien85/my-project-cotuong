@@ -17,7 +17,7 @@ public class LoadingAsset {
 	static AssetManager manager;
 
 	public static void create() {
-		Resolution[] resolutions = { new Resolution(240, 320, "240320"), new Resolution(480, 800, "480800") };
+		Resolution[] resolutions = { new Resolution(240, 320, "240320") };
 		ResolutionFileResolver resolver = new ResolutionFileResolver(new InternalFileHandleResolver(), resolutions);
 		manager = new AssetManager(resolver);
 		manager.setErrorListener(new AssetErrorListener() {

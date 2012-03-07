@@ -86,6 +86,7 @@ public class ChessTexture {
 	public static AtlasRegion cancelBtnDown;
 	public static AtlasRegion cancelBtn;
 	public static AtlasRegion dialogBg;
+	public static AtlasRegion waitingNotice;
 
 	static public void create() {
 		Resolution[] resolutions = { new Resolution(240, 320, "240320")};
@@ -190,6 +191,8 @@ public class ChessTexture {
 		readyButtonDown = atlas.findRegion("sansangBtnDown");
 		
 		effectBatDau = atlas.findRegion("effect bat dau");
+		
+		waitingNotice = atlas.findRegion("waitingNotice");		
 	
 	}
 

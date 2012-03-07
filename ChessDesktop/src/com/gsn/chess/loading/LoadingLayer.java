@@ -9,9 +9,7 @@ public class LoadingLayer extends GsnLayer {
 	boolean added;
 	Image[] dotText = new Image[3];
 	ChessGame game;
-	float time;
-	public boolean connected = false;
-	public boolean assignContent = false;
+	float time;	
 
 	public LoadingLayer(ChessGame game, float width, float height) {
 		super(width, height);
@@ -23,7 +21,7 @@ public class LoadingLayer extends GsnLayer {
 		Image loadingText = new Image(LoadingAsset.loadingText);
 
 		loadingText.x = width - loadingText.width - getRatioWidth(0.1f);
-		loadingText.y = getRatioHeight(0f);		
+		loadingText.y = getRatioHeight(0f);
 		this.addActor(loadingText);
 		added = true;
 		for (int i = 0; i < 3; i++) {
@@ -37,15 +35,12 @@ public class LoadingLayer extends GsnLayer {
 	@Override
 	public void act(float delta) {
 		// TODO Auto-generated method stub
-		super.act(delta);		
-		
-		if (!assignContent) {
-			if (ChessTexture.update()) {
-				ChessTexture.assignContent();
-				assignContent = true;
-			}
-		} else if (connected)
+		super.act(delta);
+
+		if (ChessTexture.update()) {
+			ChessTexture.assignContent();
 			game.onFinishLoading();
+		}
 
 		time += delta;
 		if (time > 0.4f) {
