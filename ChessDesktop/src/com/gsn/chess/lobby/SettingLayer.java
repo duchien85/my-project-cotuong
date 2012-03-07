@@ -9,15 +9,15 @@ import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.game.ChessSetting;
 import com.gsn.engine.layout.GsnTableLayout;
 import com.gsn.engine.myplay.GsnLayer;
+import com.gsn.engine.myplay.GsnScreen;
 
 public class SettingLayer extends GsnLayer implements ClickListener{
 	Image bg;
 	ImageButton soundBtn;
-	ImageButton exitBtn;
-	LobbyScreen parent;
+	ImageButton exitBtn;	
 	private String tag = "Setting Layer";
 	
-	public SettingLayer(LobbyScreen parent, float width, float height) {
+	public SettingLayer(float width, float height) {
 		super(width, height);
 		this.parent = parent;
 		bg = new Image(ChessTexture.greyBG);
@@ -46,7 +46,8 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 	public boolean touchUp(int x, int y, int pointer, int button) {
 		if (!super.touchDown(x, y, pointer, button)){
 			Gdx.app.log(tag, "click ra ngoai");
-			parent.hideSettingLayer();
+			if (parent instanceof LobbyScreen)
+				((LobbyScreen)parent).hideSettingLayer();
 		}
 		return super.touchUp(x, y, pointer, button);
 	}
@@ -55,7 +56,8 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 	public void click(Actor actor, float x, float y) {
 		Gdx.app.log(tag , "click ");	
 		if (actor == exitBtn){
-			parent.showExitDlg();
+			if (parent instanceof LobbyScreen)
+				((LobbyScreen)parent).showExitDlg();
 		} else if (actor == soundBtn){
 			ChessSetting.enableSound = !soundBtn.isChecked();
 			Gdx.app.log(tag, " enable sound : " + ChessSetting.enableSound);

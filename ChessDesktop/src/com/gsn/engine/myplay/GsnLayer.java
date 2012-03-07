@@ -6,7 +6,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GsnLayer extends Stage implements Comparable<GsnLayer> {
-
+	
+	public GsnScreen parent;
 	private Vector3 vector3 = new Vector3();
 	public boolean visible = true;
 	public float index = 0;

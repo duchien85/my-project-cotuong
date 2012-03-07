@@ -22,7 +22,7 @@ public class LobbyScreen extends GsnScreen implements IDialogYesNoListener {
 		lobbyLayer = new LobbyLayer(this, width, height);
 		addLayer(lobbyLayer, true);
 		
-		settingLayer = new SettingLayer(this, width, height);
+		settingLayer = new SettingLayer(width, height);
 		addLayer(settingLayer, false);
 		
 		dialogLayer = new DialogYesNoChessLayer();		

@@ -24,6 +24,7 @@ abstract public class GsnScreen{
 	public void addLayer(GsnLayer layer){
 		layers.add(layer);
 		sortLayer();
+		layer.parent = this;
 	}
 	
 	public void addLayer(GsnLayer layer, float index, boolean visible){
@@ -31,6 +32,7 @@ abstract public class GsnScreen{
 		layer.visible = visible;
 		layers.add(layer);
 		sortLayer();
+		layer.parent = this;
 	}
 	
 	public void addLayer(GsnLayer layer, boolean visible){
@@ -42,6 +44,7 @@ abstract public class GsnScreen{
 		layer.visible = visible;
 		layers.add(layer);
 		sortLayer();
+		layer.parent = this;
 	}
 	
 	public void removeLayer(GsnLayer layer){
