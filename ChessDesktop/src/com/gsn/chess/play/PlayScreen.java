@@ -23,7 +23,7 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 		super(width, height);
 		boardLayer = new BoardLayer(this, width, height);
 		dialogLayer = new DialogYesNoChessLayer();
-		dialogLayer.setListener(this);
+		dialogLayer.setDialogListener(this);
 
 		addLayer(boardLayer, true);
 		addLayer(dialogLayer, false);

@@ -87,6 +87,11 @@ public class ChessTexture {
 	public static AtlasRegion cancelBtn;
 	public static AtlasRegion dialogBg;
 	public static AtlasRegion waitingNotice;
+	public static AtlasRegion exitBtn;
+	public static AtlasRegion exitBtnDown;
+	public static AtlasRegion soundBtn;
+	public static AtlasRegion soundBtnDown;
+	public static AtlasRegion soundBtnOff;
 
 	static public void create() {
 		Resolution[] resolutions = { new Resolution(240, 320, "240320")};
@@ -193,7 +198,13 @@ public class ChessTexture {
 		effectBatDau = atlas.findRegion("effect bat dau");
 		
 		waitingNotice = atlas.findRegion("waitingNotice");		
-	
+		
+		exitBtn = atlas.findRegion("ExitBtn");
+		exitBtnDown = atlas.findRegion("ExitBtnDown");
+		
+		soundBtn = atlas.findRegion("soundBtn");
+		soundBtnDown = atlas.findRegion("soundBtnDown");
+		soundBtnOff = atlas.findRegion("soundBtnOff");
 	}
 
 	static public void loadTexture() {

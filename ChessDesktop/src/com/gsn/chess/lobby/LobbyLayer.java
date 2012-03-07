@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.game.MyChess;
@@ -26,6 +27,8 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 	GsnEnableButton quickPlayBtn;
 	int select = 1000;
 	
+	ImageButton settingBtn;
+	
 	Image greyBG;
 	Image noticeImg;
 	
@@ -33,8 +36,11 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 
 	File avatarFile = null;
 	
-	public LobbyLayer(float width, float height) {
+	LobbyScreen parent;
+	
+	public LobbyLayer(LobbyScreen parent, float width, float height) {
 		super(width, height);
+		this.parent = parent;
 		init();
 	}
 	
@@ -61,6 +67,10 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 		table.newRow(false, bet1000.height + 2 * pad);
 		table.add(0.5f).putCenter(bet1000);
 		table.add(0.5f).putCenter(bet5000);
+		
+		settingBtn = new ImageButton(ChessTexture.settingBtn, ChessTexture.settingBtnDown);
+		ActorUtility.setRatio(settingBtn, 1f, 1f, width, height);
+		settingBtn.setClickListener(this);
 
 		Group group = new Group();
 		group.width = table.width;
@@ -70,7 +80,9 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 		group.addActor(quickPlayBtn);
 
 		ActorUtility.setCenter(group, width / 2, height / 2);
-		addActor(group);
+		addActor(group);		
+		addActor(settingBtn);
+		
 		
 		greyBG = new Image(ChessTexture.greyBG);
 		greyBG.width = width;
@@ -96,7 +108,7 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 		greyBG.remove();
 		noticeImg.remove();
 		
-		MyChess.client.downloader.saveBitmapToFileAsync("me", DataProvider.myInfo.avatar, 64, 64, "haha", this);
+		//MyChess.client.downloader.saveBitmapToFileAsync("me", DataProvider.myInfo.avatar, 64, 64, "haha", this);
 	}	
 	
 	@Override
@@ -114,8 +126,11 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 			} else if (button == quickPlayBtn) {
 				MyChess.game.setPlayScreen();
 				MyChess.client.send(PacketFactory.createQuickPlay(select));
-			}
-
+			} 
+		}
+		if (actor == settingBtn){
+			Gdx.app.log(tag, "click setting btn");
+			parent.showSettingLayer();
 		}
 	}
 	

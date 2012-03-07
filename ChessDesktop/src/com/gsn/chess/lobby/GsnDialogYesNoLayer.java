@@ -66,7 +66,7 @@ public class GsnDialogYesNoLayer extends GsnLayer implements ClickListener{
 		addActor(dialog);
 	}
 	
-	public void setListener(IDialogYesNoListener listener){
+	public void setDialogListener(IDialogYesNoListener listener){
 		this.listener = listener;
 	}
 
