@@ -131,7 +131,7 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 					dialogLayer.hide();
 				}
 			}
-		}, 5000);
+		}, 4500);
 		
 	}
 }

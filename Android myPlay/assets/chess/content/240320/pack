@@ -24,786 +24,807 @@ BG240x320new
   orig: 240, 320
   offset: 0, 0
   index: -1
-userInfo
+effect chieu tuong to
   rotate: false
   xy: 2, 767
-  size: 105, 175
-  orig: 105, 175
+  size: 50, 245
+  orig: 50, 245
   offset: 0, 0
   index: -1
 effect chieu tuong to nguoc
   rotate: false
-  xy: 325, 404
-  size: 35, 163
-  orig: 35, 163
+  xy: 54, 767
+  size: 50, 245
+  orig: 50, 245
   offset: 0, 0
   index: -1
-effect chieu tuong to
+userInfo
   rotate: false
-  xy: 325, 569
-  size: 34, 162
-  orig: 34, 162
+  xy: 106, 767
+  size: 104, 162
+  orig: 104, 162
   offset: 0, 0
   index: -1
 notice board
   rotate: false
-  xy: 109, 767
+  xy: 606, 2
   size: 195, 127
   orig: 195, 127
   offset: 0, 0
   index: -1
+muc cuoc 5k chon
+  rotate: false
+  xy: 212, 767
+  size: 98, 124
+  orig: 98, 124
+  offset: 0, 0
+  index: -1
+muc cuoc 1k chon
+  rotate: false
+  xy: 212, 893
+  size: 98, 124
+  orig: 98, 124
+  offset: 0, 0
+  index: -1
 waitingNotice
   rotate: false
-  xy: 109, 896
+  xy: 606, 131
   size: 163, 123
   orig: 163, 123
   offset: 0, 0
   index: -1
+muc cuoc 5k
+  rotate: false
+  xy: 803, 2
+  size: 97, 123
+  orig: 97, 123
+  offset: 0, 0
+  index: -1
+muc cuoc 5k disable
+  rotate: false
+  xy: 902, 2
+  size: 97, 123
+  orig: 97, 123
+  offset: 0, 0
+  index: -1
+muc cuoc 5k an
+  rotate: false
+  xy: 803, 127
+  size: 97, 123
+  orig: 97, 123
+  offset: 0, 0
+  index: -1
+muc cuoc 1k
+  rotate: false
+  xy: 902, 127
+  size: 97, 123
+  orig: 97, 123
+  offset: 0, 0
+  index: -1
+muc cuoc 1k disable
+  rotate: false
+  xy: 364, 324
+  size: 97, 123
+  orig: 97, 123
+  offset: 0, 0
+  index: -1
+muc cuoc 1k an
+  rotate: false
+  xy: 463, 324
+  size: 97, 123
+  orig: 97, 123
+  offset: 0, 0
+  index: -1
 effect thang
   rotate: false
-  xy: 606, 2
+  xy: 562, 324
   size: 139, 116
   orig: 139, 116
   offset: 0, 0
   index: -1
 effect thua
   rotate: false
-  xy: 747, 2
+  xy: 703, 324
   size: 160, 92
   orig: 160, 92
   offset: 0, 0
   index: -1
 effect hoa
   rotate: false
-  xy: 606, 120
+  xy: 106, 931
   size: 98, 84
   orig: 98, 84
   offset: 0, 0
   index: -1
-muc cuoc 5k chon
-  rotate: false
-  xy: 274, 896
-  size: 66, 83
-  orig: 66, 83
-  offset: 0, 0
-  index: -1
-muc cuoc 1k chon
-  rotate: false
-  xy: 606, 206
-  size: 66, 83
-  orig: 66, 83
-  offset: 0, 0
-  index: -1
 BG btn cauhoa-xin thua
   rotate: false
-  xy: 747, 96
+  xy: 364, 449
   size: 216, 81
   orig: 216, 81
   offset: 0, 0
   index: -1
+effect an
+  rotate: false
+  xy: 865, 324
+  size: 82, 81
+  orig: 82, 81
+  offset: 0, 0
+  index: -1
 scoreBoard
   rotate: false
-  xy: 747, 179
+  xy: 582, 449
   size: 115, 78
   orig: 115, 78
   offset: 0, 0
   index: -1
-muc cuoc 1k
-  rotate: false
-  xy: 2, 944
-  size: 57, 75
-  orig: 57, 75
-  offset: 0, 0
-  index: -1
-muc cuoc 1k disable
-  rotate: false
-  xy: 674, 206
-  size: 57, 75
-  orig: 57, 75
-  offset: 0, 0
-  index: -1
-muc cuoc 1k an
-  rotate: false
-  xy: 909, 2
-  size: 57, 75
-  orig: 57, 75
-  offset: 0, 0
-  index: -1
-muc cuoc 5k
-  rotate: false
-  xy: 965, 96
-  size: 57, 73
-  orig: 57, 73
-  offset: 0, 0
-  index: -1
-muc cuoc 5k disable
-  rotate: false
-  xy: 864, 179
-  size: 57, 73
-  orig: 57, 73
-  offset: 0, 0
-  index: -1
-muc cuoc 5k an
-  rotate: false
-  xy: 923, 179
-  size: 57, 73
-  orig: 57, 73
-  offset: 0, 0
-  index: -1
 soundBtnOff
   rotate: false
-  xy: 747, 259
+  xy: 606, 256
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: -1
 soundBtnDown
   rotate: false
-  xy: 923, 254
+  xy: 669, 256
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: -1
 soundBtn
   rotate: false
-  xy: 364, 324
+  xy: 732, 256
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: -1
 ExitBtnDown
   rotate: false
-  xy: 427, 324
+  xy: 803, 252
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: -1
 ExitBtn
   rotate: false
-  xy: 490, 324
+  xy: 902, 252
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: -1
 avatar user
   rotate: false
-  xy: 864, 254
+  xy: 965, 252
   size: 57, 56
   orig: 57, 56
   offset: 0, 0
   index: -1
-effect an
-  rotate: false
-  xy: 306, 767
-  size: 53, 55
-  orig: 53, 55
-  offset: 0, 0
-  index: -1
 sansangBtnDown
   rotate: false
-  xy: 553, 324
+  xy: 699, 449
   size: 142, 54
   orig: 142, 54
   offset: 0, 0
   index: -1
 sansangBtn
   rotate: false
-  xy: 697, 324
+  xy: 843, 449
   size: 142, 54
   orig: 142, 54
   offset: 0, 0
   index: -1
 effect bat dau
   rotate: false
-  xy: 841, 324
+  xy: 364, 532
   size: 157, 47
   orig: 157, 47
   offset: 0, 0
   index: -1
+choingayBtnOff
+  rotate: false
+  xy: 364, 581
+  size: 119, 46
+  orig: 119, 46
+  offset: 0, 0
+  index: -1
+choingayBtnDown
+  rotate: false
+  xy: 364, 629
+  size: 119, 46
+  orig: 119, 46
+  offset: 0, 0
+  index: -1
+choingayBtn
+  rotate: false
+  xy: 364, 677
+  size: 119, 46
+  orig: 119, 46
+  offset: 0, 0
+  index: -1
+effect chon
+  rotate: false
+  xy: 312, 767
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+effect vua di
+  rotate: false
+  xy: 312, 813
+  size: 44, 43
+  orig: 44, 43
+  offset: 0, 0
+  index: -1
 icon san sang
   rotate: false
-  xy: 364, 387
+  xy: 364, 725
   size: 128, 41
   orig: 128, 41
   offset: 0, 0
   index: -1
 xanh xe
   rotate: false
-  xy: 61, 944
+  xy: 312, 893
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 xanh tuongs
   rotate: false
-  xy: 306, 824
+  xy: 312, 935
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 xanh tuongj
   rotate: false
-  xy: 274, 981
+  xy: 312, 977
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 xanh tot
   rotate: false
-  xy: 315, 981
+  xy: 865, 407
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 xanh sy
   rotate: false
-  xy: 706, 120
+  xy: 906, 407
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 xanh phao
   rotate: false
-  xy: 706, 162
+  xy: 949, 324
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 xanh ma
   rotate: false
-  xy: 968, 2
+  xy: 949, 366
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 do xe
   rotate: false
-  xy: 968, 44
+  xy: 364, 768
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 do tuongs
   rotate: false
-  xy: 810, 259
+  xy: 405, 768
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 do tuongj
   rotate: false
-  xy: 982, 179
+  xy: 446, 768
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 do tot
   rotate: false
-  xy: 494, 387
+  xy: 364, 810
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 do sy
   rotate: false
-  xy: 535, 387
+  xy: 405, 810
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 do phao
   rotate: false
-  xy: 576, 387
+  xy: 446, 810
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 do ma
   rotate: false
-  xy: 617, 387
+  xy: 364, 852
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 cauhoaBtnDown
   rotate: false
-  xy: 658, 387
+  xy: 405, 852
   size: 92, 32
   orig: 92, 32
   offset: 0, 0
   index: -1
 cauhoaBtn
   rotate: false
-  xy: 752, 387
+  xy: 364, 894
   size: 92, 32
   orig: 92, 32
   offset: 0, 0
   index: -1
 cauhoaBtn invi
   rotate: false
-  xy: 846, 387
+  xy: 364, 928
   size: 92, 32
   orig: 92, 32
   offset: 0, 0
   index: -1
 BgAlpha
   rotate: false
-  xy: 325, 733
+  xy: 325, 404
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
   index: -1
 xinthuaBtnDown
   rotate: false
-  xy: 364, 430
+  xy: 523, 532
   size: 95, 31
   orig: 95, 31
   offset: 0, 0
   index: -1
 xinthuaBtn
   rotate: false
-  xy: 364, 463
+  xy: 620, 532
   size: 95, 31
   orig: 95, 31
   offset: 0, 0
   index: -1
 xinthuaBtn invi
   rotate: false
-  xy: 364, 496
+  xy: 717, 532
   size: 95, 31
   orig: 95, 31
   offset: 0, 0
   index: -1
-effect vua di
-  rotate: false
-  xy: 61, 986
-  size: 29, 30
-  orig: 29, 30
-  offset: 0, 0
-  index: -1
-effect chon
-  rotate: false
-  xy: 606, 291
-  size: 29, 30
-  orig: 29, 30
-  offset: 0, 0
-  index: -1
 clock1redBg
   rotate: false
-  xy: 637, 291
+  xy: 325, 438
   size: 28, 30
   orig: 28, 30
   offset: 0, 0
   index: -1
 clock1red
   rotate: false
-  xy: 674, 283
+  xy: 325, 470
   size: 28, 30
   orig: 28, 30
   offset: 0, 0
   index: -1
 clock1greenBg
   rotate: false
-  xy: 704, 283
+  xy: 325, 502
   size: 27, 30
   orig: 27, 30
   offset: 0, 0
   index: -1
 clock1green
   rotate: false
-  xy: 982, 221
+  xy: 325, 534
   size: 27, 30
   orig: 27, 30
   offset: 0, 0
   index: -1
+dau x
+  rotate: false
+  xy: 325, 566
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
 buttonDown
   rotate: false
-  xy: 306, 866
+  xy: 325, 594
   size: 36, 24
   orig: 36, 24
   offset: 0, 0
   index: -1
 button
   rotate: false
-  xy: 986, 254
+  xy: 325, 620
   size: 36, 24
   orig: 36, 24
   offset: 0, 0
   index: -1
 huyboBntDown
   rotate: false
-  xy: 940, 387
+  xy: 703, 418
   size: 56, 23
   orig: 56, 23
   offset: 0, 0
   index: -1
 huyboBnt
   rotate: false
-  xy: 364, 529
+  xy: 761, 418
   size: 56, 23
   orig: 56, 23
   offset: 0, 0
   index: -1
 dongyBtnDown
   rotate: false
-  xy: 364, 554
+  xy: 949, 408
   size: 56, 23
   orig: 56, 23
   offset: 0, 0
   index: -1
 dongyBtn
   rotate: false
-  xy: 364, 579
+  xy: 699, 505
   size: 56, 23
   orig: 56, 23
   offset: 0, 0
   index: -1
 clock2red
   rotate: false
-  xy: 364, 604
+  xy: 757, 505
   size: 54, 22
   orig: 54, 22
   offset: 0, 0
   index: -1
 clock2green
   rotate: false
-  xy: 364, 628
+  xy: 843, 505
   size: 54, 22
   orig: 54, 22
   offset: 0, 0
   index: -1
 beticon1000
   rotate: false
-  xy: 364, 652
+  xy: 899, 505
   size: 69, 20
   orig: 69, 20
   offset: 0, 0
   index: -1
 goi y
   rotate: false
-  xy: 810, 301
+  xy: 325, 646
   size: 21, 20
   orig: 21, 20
   offset: 0, 0
   index: -1
 beticon5000
   rotate: false
-  xy: 364, 674
+  xy: 364, 962
   size: 69, 19
   orig: 69, 19
   offset: 0, 0
   index: -1
 settingBtnDown
   rotate: false
-  xy: 833, 301
+  xy: 325, 668
   size: 28, 19
   orig: 28, 19
   offset: 0, 0
   index: -1
 settingBtn
   rotate: false
-  xy: 986, 280
+  xy: 325, 689
   size: 28, 19
   orig: 28, 19
   offset: 0, 0
   index: -1
 chatBtnDown
   rotate: false
-  xy: 986, 301
+  xy: 325, 710
   size: 28, 19
   orig: 28, 19
   offset: 0, 0
   index: -1
 chatBtn
   rotate: false
-  xy: 422, 529
+  xy: 325, 731
   size: 28, 19
   orig: 28, 19
   offset: 0, 0
   index: -1
-dau x
-  rotate: false
-  xy: 344, 866
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
 bubbleChatTrai
   rotate: false
-  xy: 909, 79
+  xy: 325, 752
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 9
 bubbleChatTrai
   rotate: false
-  xy: 933, 79
+  xy: 312, 858
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 7
 bubbleChatTrai
   rotate: false
-  xy: 841, 373
+  xy: 312, 872
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 3
 bubbleChatTrai
   rotate: false
-  xy: 865, 373
+  xy: 336, 858
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 1
 bubbleChatPhai
   rotate: false
-  xy: 889, 373
+  xy: 336, 872
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 9
 bubbleChatPhai
   rotate: false
-  xy: 913, 373
+  xy: 771, 131
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 7
 bubbleChatPhai
   rotate: false
-  xy: 937, 373
+  xy: 771, 145
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 3
 bubbleChatPhai
   rotate: false
-  xy: 961, 373
+  xy: 771, 159
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: 1
 bubbleChatTrai
   rotate: false
-  xy: 1000, 324
+  xy: 771, 173
   size: 21, 12
   orig: 21, 12
   offset: 0, 0
   index: 8
 bubbleChatTrai
   rotate: false
-  xy: 1000, 338
+  xy: 771, 187
   size: 21, 12
   orig: 21, 12
   offset: 0, 0
   index: 2
 bubbleChatPhai
   rotate: false
-  xy: 1000, 352
+  xy: 771, 201
   size: 21, 12
   orig: 21, 12
   offset: 0, 0
   index: 8
 bubbleChatPhai
   rotate: false
-  xy: 1000, 366
+  xy: 771, 215
   size: 21, 12
   orig: 21, 12
   offset: 0, 0
   index: 2
 bubbleChatPhai
   rotate: false
-  xy: 940, 412
+  xy: 771, 229
   size: 22, 11
   orig: 22, 11
   offset: 0, 0
   index: 6
 bubbleChatTrai
   rotate: false
-  xy: 940, 412
+  xy: 771, 229
   size: 22, 11
   orig: 22, 11
   offset: 0, 0
   index: 6
 bubbleChatPhai
   rotate: false
-  xy: 964, 412
+  xy: 771, 242
   size: 22, 11
   orig: 22, 11
   offset: 0, 0
   index: 4
 bubbleChatTrai
   rotate: false
-  xy: 964, 412
+  xy: 771, 242
   size: 22, 11
   orig: 22, 11
   offset: 0, 0
   index: 4
 bubbleChatPhai
   rotate: false
-  xy: 998, 387
+  xy: 1001, 2
   size: 21, 11
   orig: 21, 11
   offset: 0, 0
   index: 5
 bubbleChatTrai
   rotate: false
-  xy: 998, 387
+  xy: 1001, 2
   size: 21, 11
   orig: 21, 11
   offset: 0, 0
   index: 5
 hai cham
   rotate: false
-  xy: 351, 733
+  xy: 351, 404
   size: 4, 11
   orig: 4, 11
   offset: 0, 0
   index: -1
 numberClock1
   rotate: false
-  xy: 351, 746
+  xy: 351, 417
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 9
 numberClock1
   rotate: false
-  xy: 92, 986
+  xy: 353, 566
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 8
 numberClock1
   rotate: false
-  xy: 92, 998
+  xy: 353, 578
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 7
 numberClock1
   rotate: false
-  xy: 92, 1010
+  xy: 348, 646
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 6
 numberClock1
   rotate: false
-  xy: 347, 824
+  xy: 349, 752
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 5
 numberClock1
   rotate: false
-  xy: 347, 836
+  xy: 353, 893
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 3
 numberClock1
   rotate: false
-  xy: 347, 848
+  xy: 353, 905
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 2
 numberClock1
   rotate: false
-  xy: 342, 896
+  xy: 353, 917
   size: 9, 10
   orig: 9, 10
   offset: 0, 0
   index: 0
 numberClock1
   rotate: false
-  xy: 353, 896
+  xy: 354, 502
   size: 8, 10
   orig: 8, 10
   offset: 0, 0
   index: 4
 numberClock2
   rotate: false
-  xy: 342, 908
+  xy: 355, 438
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 9
 numberClock2
   rotate: false
-  xy: 351, 908
+  xy: 355, 450
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 8
 numberClock2
   rotate: false
-  xy: 342, 920
+  xy: 355, 470
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 6
 numberClock2
   rotate: false
-  xy: 351, 920
+  xy: 355, 482
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 3
 numberClock2
   rotate: false
-  xy: 342, 932
+  xy: 354, 514
   size: 7, 10
   orig: 7, 10
   offset: 0, 0
   index: 0
 numberClock1
   rotate: false
-  xy: 357, 733
+  xy: 357, 404
   size: 5, 10
   orig: 5, 10
   offset: 0, 0
   index: 1
 numberClock2
   rotate: false
-  xy: 351, 932
+  xy: 354, 534
   size: 8, 9
   orig: 8, 9
   offset: 0, 0
   index: 4
 numberClock2
   rotate: false
-  xy: 342, 944
+  xy: 354, 545
   size: 7, 9
   orig: 7, 9
   offset: 0, 0
   index: 7
 numberClock2
   rotate: false
-  xy: 351, 944
+  xy: 355, 668
   size: 7, 9
   orig: 7, 9
   offset: 0, 0
   index: 5
 numberClock2
   rotate: false
-  xy: 342, 955
+  xy: 355, 689
   size: 7, 9
   orig: 7, 9
   offset: 0, 0
   index: 2
 numberClock2
   rotate: false
-  xy: 102, 944
+  xy: 355, 710
   size: 5, 9
   orig: 5, 9
   offset: 0, 0
   index: 1
 numberClock2
   rotate: false
-  xy: 351, 758
+  xy: 351, 429
   size: 3, 7
   orig: 3, 7
   offset: 0, 0
