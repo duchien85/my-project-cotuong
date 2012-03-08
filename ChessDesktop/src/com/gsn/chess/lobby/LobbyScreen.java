@@ -73,6 +73,7 @@ public class LobbyScreen extends GsnScreen implements IDialogYesNoListener {
 	public void showSettingLayer() {		
 		setVisibleLayer(settingLayer, true);
 		settingLayer.setInputListener();
+		settingLayer.loadSetting();
 	}	
 	
 	public void hideSettingLayer() {		

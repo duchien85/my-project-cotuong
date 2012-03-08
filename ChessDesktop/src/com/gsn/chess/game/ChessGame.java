@@ -71,7 +71,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 	}
 
 	public void otherReady() {
-		Gdx.app.log(tag, "other READY");
+		playScreen.boardLayer.otherReady();
 	}
 
 	public void startGame(int first) {
@@ -176,6 +176,16 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 						lose(canContinue);					
 				} else
 					draw(canContinue);				
+				break;
+			case CmdDefine.ANSWER_DRAW:
+				boolean agree = json.getBoolean("agree");
+				playScreen.boardLayer.hideWaitThinking();
+				if (!agree){
+					playScreen.showKoDongYHoa();
+				}
+				break;
+			case CmdDefine.ASK_DRAW:
+				playScreen.showCauHoa();
 				break;
 			}
 		} catch (Exception e) {

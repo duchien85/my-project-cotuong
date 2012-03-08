@@ -98,4 +98,40 @@ public class PacketFactory {
 		return json;
 	}
 	
+	public static JSONObject createAskDrawn() {
+		JSONObject json = create();
+		JSONObject params = new JSONObject();
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.ASK_DRAW);
+			json.put(CmdDefine.PARAMS, params);
+		} catch (JSONException e) {			
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	public static JSONObject createAskLose() {
+		JSONObject json = create();
+		JSONObject params = new JSONObject();
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.ASK_LOSE);
+			json.put(CmdDefine.PARAMS, params);
+		} catch (JSONException e) {			
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	public static JSONObject createAnswerDrawn(boolean agree) {
+		JSONObject json = create();
+		JSONObject params = new JSONObject();
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.ANSWER_DRAW);
+			params.put("agree", agree);
+			json.put(CmdDefine.PARAMS, params);
+		} catch (JSONException e) {			
+			e.printStackTrace();
+		}
+		return json;
+	}
 }

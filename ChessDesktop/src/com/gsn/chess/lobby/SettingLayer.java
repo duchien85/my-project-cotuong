@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.game.ChessSetting;
+import com.gsn.chess.play.PlayScreen;
 import com.gsn.engine.layout.GsnTableLayout;
 import com.gsn.engine.myplay.GsnLayer;
-import com.gsn.engine.myplay.GsnScreen;
 
 public class SettingLayer extends GsnLayer implements ClickListener{
 	Image bg;
@@ -19,15 +19,13 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 	
 	public SettingLayer(float width, float height) {
 		super(width, height);
-		this.parent = parent;
 		bg = new Image(ChessTexture.greyBG);
 		bg.width = width;
 		bg.height = height;
 		
 		
 		exitBtn = new ImageButton(ChessTexture.exitBtn, ChessTexture.exitBtnDown);
-		soundBtn = new ImageButton(ChessTexture.soundBtn, ChessTexture.soundBtnDown, ChessTexture.soundBtnOff);
-		soundBtn.setChecked(!ChessSetting.enableSound); 
+		soundBtn = new ImageButton(ChessTexture.soundBtn, ChessTexture.soundBtnDown, ChessTexture.soundBtnOff);		
 		
 		GsnTableLayout table = new GsnTableLayout(0, 0, width, height);
 		table.newRow(true, 1f);
@@ -40,6 +38,7 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 		
 		exitBtn.setClickListener(this);
 		soundBtn.setClickListener(this);
+		loadSetting();
 	}
 	
 	@Override
@@ -48,6 +47,8 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 			Gdx.app.log(tag, "click ra ngoai");
 			if (parent instanceof LobbyScreen)
 				((LobbyScreen)parent).hideSettingLayer();
+			if (parent instanceof PlayScreen)
+				((PlayScreen)parent).hideSettingLayer();
 		}
 		return super.touchUp(x, y, pointer, button);
 	}
@@ -58,9 +59,15 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 		if (actor == exitBtn){
 			if (parent instanceof LobbyScreen)
 				((LobbyScreen)parent).showExitDlg();
+			if (parent instanceof PlayScreen)
+				((PlayScreen)parent).showQuitDialog();
 		} else if (actor == soundBtn){
 			ChessSetting.enableSound = !soundBtn.isChecked();
 			Gdx.app.log(tag, " enable sound : " + ChessSetting.enableSound);
 		}
+	}
+
+	public void loadSetting() {		
+		soundBtn.setChecked(!ChessSetting.enableSound);
 	}
 }

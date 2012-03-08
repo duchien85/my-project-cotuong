@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.gsn.chess.asset.ChessTexture;
 import com.gsn.engine.ActorUtility;
 
 public class ClockTurn extends Group {
@@ -14,13 +15,18 @@ public class ClockTurn extends Group {
 	float standardTime;
 	float remainTime;
 	boolean pause = false;
+	Image bg;
+	TextureRegion bgRun;
+	TextureRegion bgPause;
 	
-	public ClockTurn(TextureRegion background, List<AtlasRegion> nums) {
+	public ClockTurn(TextureRegion backgroundRun, TextureRegion backgroundPause,  List<AtlasRegion> nums) {
 		this.nums = nums;
-		Image bg = new Image(background);
+		bg = new Image(backgroundRun);
 		addActor(bg);
 		this.width = bg.width;
-		this.height = bg.height;							
+		this.height = bg.height;	
+		bgRun = backgroundRun;
+		bgPause = backgroundPause;
 	}
 	
 	private Group convertNum(Integer time){
@@ -39,10 +45,13 @@ public class ClockTurn extends Group {
 	
 	public void pause(){
 		pause = true;
+		number.remove();
+		bg.setRegion(bgPause);
 	}
 	
 	public void resume(){
 		pause = false;
+		bg.setRegion(bgRun);
 	}
 	
 	public void startTime(int time){

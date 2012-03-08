@@ -34,7 +34,7 @@ public class BoardGroup extends Group implements ClickListener {
 	Image chieuEff;
 	Image camChieuEff;
 	CoTuongLogic logic;
-	Image chieuImg;
+	Image chieuImgMe;
 
 	float longCell;
 	float scale;
@@ -44,12 +44,15 @@ public class BoardGroup extends Group implements ClickListener {
 	State state;
 	List<Image> suggestList = new ArrayList<Image>();
 	List<GsnPiece> pieceList = new ArrayList<GsnPiece>();
+	private Image chieuImgOther;
+	public int turn;
+	BoardLayer myParent;
 
-	public BoardGroup(float width, float height) {
+	public BoardGroup(BoardLayer parent, float width, float height) {
 		this.width = width;
 		this.height = height;
 		initBoardBg();
-
+		myParent = parent;
 		logic = new CoTuongLogic();
 		logic.initNewGame(0);
 	}
@@ -155,7 +158,7 @@ public class BoardGroup extends Group implements ClickListener {
 	public void startGame(int firstTurn) {
 		logic = new CoTuongLogic();
 		logic.initNewGame(firstTurn);
-
+		turn = 0;		
 		clear();
 		initBoardBg();
 		initBoardPiece();
@@ -179,11 +182,18 @@ public class BoardGroup extends Group implements ClickListener {
 		scaleContent(camChieuEff);
 		addActor(camChieuEff);
 		camChieuEff.visible = false;
-		
-		chieuImg = new Image(ChessTexture.redGeneral);
-		ActorUtility.setCenter(chieuImg, width / 2, height / 2);
-		addActor(chieuImg);
-		chieuImg.color.a = 0f;
+
+		chieuImgMe = new Image(ChessTexture.effectChieuMe);
+		scaleContent(chieuImgMe);
+		putCell(chieuImgMe, 6, 4);
+		addActor(chieuImgMe);
+		chieuImgMe.color.a = 0f;
+
+		chieuImgOther = new Image(ChessTexture.effectChieuOther);
+		scaleContent(chieuImgOther);
+		putCell(chieuImgOther, 3, 4);
+		addActor(chieuImgOther);
+		chieuImgOther.color.a = 0f;
 	}
 
 	private void putCell(Actor actor, int row, int column) {
@@ -246,6 +256,7 @@ public class BoardGroup extends Group implements ClickListener {
 	}
 
 	public void moveChess(int playerId, int pieceId, int row, int col) {
+		turn++;
 		removeSuggest();
 		selectEff.visible = false;
 		camChieuEff.visible = false;
@@ -260,6 +271,7 @@ public class BoardGroup extends Group implements ClickListener {
 		effectJustMove(row, col);
 		effectChieuTuong();
 		MyChess.game.nextTurn(logic.getCurrentTurnID());
+		myParent.setVisibleFeature();
 	}
 
 	private int checkChieuTuong() {
@@ -269,19 +281,27 @@ public class BoardGroup extends Group implements ClickListener {
 			return 1;
 		return -1;
 	}
-	
+
 	int chieu = -1;
 
-	private void effectChieuTuong() {
+	public void effectChieuTuong() {
 		chieu = checkChieuTuong();
 		if (chieu < 0)
 			chieuEff.visible = false;
 		else {
 			GsnPiece general = findPieceByID(chieu, GENERAL_ID);
 			chieuEff.visible = true;
-			putCell(chieuEff, general.logic.iRow, general.logic.iCol);			
-			chieuImg.color.a = 1f;
-			chieuImg.action(FadeOut.$(1.5f));
+			putCell(chieuEff, general.logic.iRow, general.logic.iCol);
+
+			if (chieu == 1) {
+				Gdx.app.log(tag, " CHIEU ME");
+				chieuImgMe.color.a = 1f;
+				chieuImgMe.action(FadeOut.$(1.5f));
+			} else {
+				Gdx.app.log(tag, " CHIEU OTHER");
+				chieuImgOther.color.a = 1f;
+				chieuImgOther.action(FadeOut.$(1.5f));
+			}
 		}
 	}
 

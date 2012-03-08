@@ -92,6 +92,23 @@ public class ChessTexture {
 	public static AtlasRegion soundBtn;
 	public static AtlasRegion soundBtnDown;
 	public static AtlasRegion soundBtnOff;
+	public static AtlasRegion effectChieuMe;
+	public static AtlasRegion effectChieuOther;	
+	public static AtlasRegion iconSanSang;
+	public static AtlasRegion clock1redBg;
+	public static AtlasRegion clock1greenBg;
+	public static AtlasRegion featureBtn;
+	public static AtlasRegion featureBtnDown;
+	
+	public static AtlasRegion featureBG;
+	public static AtlasRegion xinhoaBtn;
+	public static AtlasRegion xinhoaBtnDown;
+	public static AtlasRegion xinhoaBtnInvi;
+	
+	public static AtlasRegion xinthuaBtn;
+	public static AtlasRegion xinthuaBtnDown;
+	public static AtlasRegion xinthuaBtnInvi;
+	
 
 	static public void create() {
 		Resolution[] resolutions = { new Resolution(240, 320, "240320")};
@@ -201,10 +218,28 @@ public class ChessTexture {
 		
 		exitBtn = atlas.findRegion("ExitBtn");
 		exitBtnDown = atlas.findRegion("ExitBtnDown");
-		
 		soundBtn = atlas.findRegion("soundBtn");
 		soundBtnDown = atlas.findRegion("soundBtnDown");
 		soundBtnOff = atlas.findRegion("soundBtnOff");
+		
+		effectChieuMe = atlas.findRegion("effect chieu tuong to");
+		effectChieuOther = atlas.findRegion("effect chieu tuong to nguoc");
+		iconSanSang = atlas.findRegion("icon san sang");
+		
+		clock1redBg = atlas.findRegion("clock1redBg");
+		clock1greenBg = atlas.findRegion("clock1greenBg");
+		
+		featureBtn = atlas.findRegion("button");
+		featureBtnDown = atlas.findRegion("buttonDown");
+		
+		featureBG = atlas.findRegion("BG btn cauhoa-xin thua");
+		xinhoaBtn = atlas.findRegion("cauhoaBtn");
+		xinhoaBtnDown = atlas.findRegion("cauhoaBtnDown");
+		xinhoaBtnInvi = atlas.findRegion("cauhoaBtn invi");
+		
+		xinthuaBtn = atlas.findRegion("xinthuaBtn");
+		xinthuaBtnDown = atlas.findRegion("xinthuaBtnDown");
+		xinthuaBtnInvi = atlas.findRegion("xinthuaBtn invi");
 	}
 
 	static public void loadTexture() {

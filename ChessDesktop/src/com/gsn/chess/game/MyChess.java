@@ -8,6 +8,6 @@ public class MyChess {
 	public static MercuryClient client;
 	public static ChessGame game;	
 	
-	public static String server = "118.102.3.7";
-	//public static String server = "118.102.3.12";
+	//public static String server = "118.102.3.7";
+	public static String server = "120.138.65.118";
 }
