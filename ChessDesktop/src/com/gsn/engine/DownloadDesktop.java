@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 
 public class DownloadDesktop extends IDowloader{
 	public File cacheDir;
-	public void saveBitmapToFileAsync(String id, final String link, final int width, final int height, final String localPath, final IImageFactoryListener listener) {
+	public void saveBitmapToFileAsync(String id, final String link, final int width, final int height, final String localPath, final IImageDownloadListener listener) {
 		File outFile = Gdx.files.internal("tmp/avatar.png").file();
 		listener.onFinishLoading(id, outFile);
 	}

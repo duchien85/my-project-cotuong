@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
@@ -17,12 +18,12 @@ import com.gsn.chess.game.MyChess;
 import com.gsn.chess.packet.PacketFactory;
 import com.gsn.chess.play.BubbleChat;
 import com.gsn.engine.ActorUtility;
-import com.gsn.engine.IDowloader.IImageFactoryListener;
+import com.gsn.engine.IDowloader.IImageDownloadListener;
 import com.gsn.engine.layout.GsnTableLayout;
 import com.gsn.engine.myplay.GsnLayer;
 import com.gsn.engine.template.GsnEnableButton;
 
-public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactoryListener {
+public class LobbyLayer extends GsnLayer implements ClickListener, IImageDownloadListener {
 	GsnEnableButton bet1000;
 	GsnEnableButton bet5000;
 	GsnEnableButton quickPlayBtn;
@@ -109,9 +110,13 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 		greyBG.remove();
 		noticeImg.remove();
 		
-		BubbleChat chat = new BubbleChat(ChessTexture.chatMe, 80, ChessTexture.fontMedium, "kakaksf sdfas sdf asf asfa sdfas df sadf asfasd fasf asdfdsafasd fas asdfsdf");
-		addActor(chat);
+		info = new UserInfoGroup(DataProvider.myInfo);
+		addActor(info);
+		
+		MyChess.client.downloader.saveBitmapToFileAsync("He", DataProvider.myInfo.avatar, 64, 64, DataProvider.myInfo.id + ".png", this);
 	}	
+	
+	UserInfoGroup info;
 	
 	@Override
 	public void click(Actor actor, float x, float y) {
@@ -167,10 +172,10 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 		if (avatarFile != null){
 			Gdx.app.log(tag, avatarFile.getAbsolutePath());
 			Texture texture = new Texture(new FileHandle(avatarFile));
-			Image avatar = new Image(texture);
-			addActor(avatar);
-			avatarFile = null;
-		}
+			TextureRegion region = new TextureRegion(texture);
+			info.setAvatar(region);			
+			avatarFile = null;			
+		}		
 		super.act(delta);
 	}
 }
