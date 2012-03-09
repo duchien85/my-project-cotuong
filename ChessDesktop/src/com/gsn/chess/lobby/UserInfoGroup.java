@@ -73,6 +73,7 @@ public class UserInfoGroup extends Group implements IImageDownloadListener{
 
 	public void setAvatar(TextureRegion region) {
 		if (!loadAvatar) {
+			Gdx.app.log("User Info Group", " load avatar : " + avatarFile.getAbsolutePath());
 			loadAvatar = true;
 			Image tmp;
 			tmp = new Image(region);
@@ -99,8 +100,7 @@ public class UserInfoGroup extends Group implements IImageDownloadListener{
 	public void act(float delta) {
 		// TODO Auto-generated method stub
 		super.act(delta);
-		if (avatarFile != null){
-			Gdx.app.log("User Info Group", avatarFile.getAbsolutePath());
+		if (avatarFile != null){		
 			Texture texture = new Texture(new FileHandle(avatarFile));
 			TextureRegion region = new TextureRegion(texture);
 			setAvatar(region);			
