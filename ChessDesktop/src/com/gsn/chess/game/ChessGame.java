@@ -34,10 +34,10 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 	public void create() {
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();
-		
+
 		ChessTexture.create();
 		ChessTexture.loadTexture();
-		
+
 		LoadingAsset.create();
 		loadingScreen = new LoadingScreen(this, width, height);
 		setScreen(loadingScreen);
@@ -62,7 +62,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 	}
 
 	@Override
-	public void resume() {		
+	public void resume() {
 
 	}
 
@@ -85,18 +85,18 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 	}
 
 	@Override
-	public void onConnected() {		
-		session = "1F018988DE18E19D7E76A709";
-		//session = "1F018988DE18E1";		
+	public void onConnected() {
+		session = "1F018988CAF8D80B7A75F63E";
+		// session = "1F018988DE18E1";
 		MyChess.client.send(PacketFactory.createLogin(session));
 	}
 
 	@Override
 	public void onDisconnected() {
 		Gdx.app.log(tag, "mercury disconnect");
-		if (currentScreen == lobbyScreen){
+		if (currentScreen == lobbyScreen) {
 			lobbyScreen.showCantConnect();
-		} else if (currentScreen == playScreen){
+		} else if (currentScreen == playScreen) {
 			setLobbyScreen();
 			lobbyScreen.showCantConnect();
 		}
@@ -108,9 +108,11 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 		// TODO Auto-generated method stub
 
 	}
+
 	public boolean reserve;
+
 	@Override
-	public void onReceivedJson(JSONObject json) {		
+	public void onReceivedJson(JSONObject json) {
 		Gdx.app.log(tag, "receive json: " + json);
 		try {
 			if (json.has("loginOK")) {
@@ -123,36 +125,37 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 				return;
 			}
 			int cmd = json.getInt(CmdDefine.CMD);
-			switch (cmd){
+			switch (cmd) {
 			case CmdDefine.CMD_GET_INFO:
 				JSONObject pinfo = json.getJSONObject("pInfo");
 				PlayerInfo info = new PlayerInfo(pinfo);
-				DataProvider.myInfo = info;				
-				lobbyScreen.lobbyLayer.setUserInfo(); 				
-				break;	
+				DataProvider.myInfo = info;
+				lobbyScreen.lobbyLayer.setUserInfo();
+				break;
 			case CmdDefine.CMD_JOIN_ROOM:
 				JSONArray users = json.getJSONArray("users");
-				for (int i = 0; i < users.length(); i++){
+				for (int i = 0; i < users.length(); i++) {
 					PlayerInfo tmp = new PlayerInfo(users.getJSONObject(i));
-					if (tmp.id == DataProvider.myInfo.id){
-						DataProvider.myInfo = tmp;						
-					}
-					else 
+					if (tmp.id == DataProvider.myInfo.id) {
+						DataProvider.myInfo = tmp;
+					} else {
 						DataProvider.otherInfo = tmp;
+						playScreen.infoLayer.updateInfo();
+					}
 					otherJoin();
-				}					
+				}
 				break;
 			case CmdDefine.CMD_READY:
 				otherReady();
 				break;
-			case CmdDefine.CMD_START:				
+			case CmdDefine.CMD_START:
 				int next = json.getInt("next");
-				//int below = json.getInt("below");
+				// int below = json.getInt("below");
 				int above = json.getInt("above");
 				reserve = (above == DataProvider.myInfo.id);
 				if (next == DataProvider.myInfo.id)
 					startGame(0);
-				else 
+				else
 					startGame(1);
 				break;
 			case CmdDefine.CMD_CHESS_MOVE:
@@ -160,32 +163,76 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 				int fromRow = json.getInt("fromRow");
 				int fromCol = json.getInt("fromCol");
 				int toRow = json.getInt("toRow");
-				int toCol = json.getInt("toCol");				
+				int toCol = json.getInt("toCol");
 				moveChess(id, fromRow, fromCol, toRow, toCol);
 				break;
 			case CmdDefine.CMD_OUT_ROOM:
 				playScreen.showQuitOtherDlg();
 				break;
 			case CmdDefine.CMD_STOP:
-				int canContinue = json.getInt("canContinue") ; 
-				if (json.has("winner")){
+				int canContinue = json.getInt("canContinue");
+				if (json.has("winner")) {
 					int winner = json.getInt("winner");
 					if (winner == DataProvider.myInfo.id)
 						win(canContinue);
 					else
-						lose(canContinue);					
+						lose(canContinue);
 				} else
-					draw(canContinue);				
+					draw(canContinue);
 				break;
 			case CmdDefine.ANSWER_DRAW:
 				boolean agree = json.getBoolean("agree");
 				playScreen.boardLayer.hideWaitThinking();
-				if (!agree){
+				if (!agree) {
 					playScreen.showKoDongYHoa();
 				}
 				break;
 			case CmdDefine.ASK_DRAW:
 				playScreen.showCauHoa();
+				break;
+			case CmdDefine.CMD_UPDATE_STATUS:
+				int pID = json.getInt("id");
+				if (pID == DataProvider.myInfo.id) {
+					PlayerInfo myInfo = DataProvider.myInfo;
+					JSONArray arr = json.getJSONArray("properties");
+					for (int i = 0; i < arr.length(); i++) {
+						JSONObject e = arr.getJSONObject(i);
+						String name = e.getString("name");
+						int value = e.getInt("value");
+						if (name.equals("lose"))
+							myInfo.lose = value;
+						else if (name.equals("win"))
+							myInfo.win = value;
+						else if (name.equals("exp"))
+							myInfo.exp = value;
+						else if (name.equals("gold"))
+							myInfo.gold = value;
+						playScreen.infoLayer.updateInfo();
+					}
+				}
+
+				if (DataProvider.otherInfo != null && DataProvider.otherInfo.id == pID) {
+					PlayerInfo otherInfo = DataProvider.otherInfo;
+					JSONArray arr = json.getJSONArray("properties");
+					for (int i = 0; i < arr.length(); i++) {
+						JSONObject e = arr.getJSONObject(i);
+						String name = e.getString("name");
+						int value = e.getInt("value");
+						if (name.equals("lose"))
+							otherInfo.lose = value;
+						else if (name.equals("win"))
+							otherInfo.win = value;
+						else if (name.equals("exp"))
+							otherInfo.exp = value;
+						else if (name.equals("gold"))
+							otherInfo.gold = value;
+						playScreen.infoLayer.updateInfo();
+					}
+				}
+				break;
+			case CmdDefine.CMD_CHAT_ROOM:
+				String chat = json.getString("m");
+				playScreen.boardLayer.chatOther(chat);
 				break;
 			}
 		} catch (Exception e) {
@@ -194,11 +241,11 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 	}
 
 	public void setPlayScreen() {
-		setScreen(playScreen);		
-	}	
-	
-	public void moveChess(int id, int fromRow, int fromCol, int toRow, int toCol){				
-		if (reserve){
+		setScreen(playScreen);
+	}
+
+	public void moveChess(int id, int fromRow, int fromCol, int toRow, int toCol) {
+		if (reserve) {
 			fromRow = 9 - fromRow;
 			fromCol = 8 - fromCol;
 			toRow = 9 - toRow;
@@ -206,47 +253,49 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 		}
 		int turn = id == DataProvider.myInfo.id ? 0 : 1;
 		if (turn == 1)
-			playScreen.boardLayer.move(turn, fromRow, fromCol, toRow, toCol);		
+			playScreen.boardLayer.move(turn, fromRow, fromCol, toRow, toCol);
 	}
-	
+
 	public void setLobbyScreen() {
-		setScreen(lobbyScreen);		
+		setScreen(lobbyScreen);
 	}
 
 	public void win(int canContinue) {
 		Gdx.app.log(tag, "WIN");
-		playScreen.boardLayer.youWin(canContinue);		
+		playScreen.boardLayer.youWin(canContinue);
+		playScreen.infoLayer.win();
 	}
 
 	public void lose(int canContinue) {
 		Gdx.app.log(tag, "LOSE");
-		playScreen.boardLayer.youLose(canContinue);		
+		playScreen.boardLayer.youLose(canContinue);
+		playScreen.infoLayer.lose();
 	}
 
 	public void draw(int canContinue) {
 		Gdx.app.log(tag, "DRAW");
 		playScreen.boardLayer.youDraw(canContinue);
-		
+
 	}
 
 	public void nextTurn(int turn) {
 		Gdx.app.log(tag, "*********next turn : " + turn);
 		playScreen.boardLayer.nextTurn(turn);
-		
+
 	}
 
-	public void onFinishLoading() {	
-		LoadingAsset.unload();		
-	
+	public void onFinishLoading() {
+		LoadingAsset.unload();
+
 		lobbyScreen = new LobbyScreen(width, height);
 		playScreen = new PlayScreen(width, height);
-		
+
 		setLobbyScreen();
 		MyChess.client.connect();
 	}
 
 	@Override
-	public void onException(Exception ex) {		
+	public void onException(Exception ex) {
 		Gdx.app.log(tag, "loi mercury : ", ex);
-	}	
+	}
 }

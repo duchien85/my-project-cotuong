@@ -5,9 +5,12 @@ import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Delay;
 import com.badlogic.gdx.scenes.scene2d.actions.FadeOut;
+import com.badlogic.gdx.scenes.scene2d.actions.Remove;
 import com.badlogic.gdx.scenes.scene2d.actions.Sequence;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.packet.PacketFactory;
+import com.gsn.chess.play.BoardGroup.State;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.myplay.GsnLayer;
 import com.gsn.engine.template.GsnEnableButton;
@@ -48,8 +52,12 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	Image greyBG;
 	Image waitThinkingNocite;
 	
+	float heightTop;
+	
 	int turnXinHoa = -1;
 	int numXinHoa = 0;
+
+	private float heightBottom;
 	public BoardLayer(float width, float height) {
 		super(width, height);
 		init();
@@ -94,8 +102,10 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 
 		featureBtn = new ImageButton(ChessTexture.featureBtn, ChessTexture.featureBtnDown);		
 		featureBtn.setClickListener(this);
-		float heightTop = betIcon.height;
-		float heightBottom = Math.max(Math.max(featureBtn.height, clockOne.height), clockTwo.height);
+		
+		
+		heightTop = betIcon.height;
+		heightBottom = Math.max(Math.max(featureBtn.height, clockOne.height), clockTwo.height);
 		ActorUtility.setCenter(featureBtn, width / 2, heightBottom / 2);
 		ActorUtility.setRatio(clockOne, 1.1f, 0.5f, featureBtn.x, heightBottom / 2);
 		ActorUtility.setRatio(clockTwo, -0.1f, 0.5f, featureBtn.x + featureBtn.width, heightBottom / 2);
@@ -150,6 +160,18 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		featureGroup.addActor(xinhoaBtn);
 		featureGroup.addActor(xinthuaBtn);
 		
+		ClickListener listen = new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				Gdx.app.log(tag, "click show info");
+				((PlayScreen) parent).showInfoLayer();				
+			}
+		};
+		
+		clockOne.setClickListener(listen);
+		clockTwo.setClickListener(listen);
+		
 		addActor(boardGroup);
 		addActor(settingBtn);
 		addActor(betIcon);
@@ -172,10 +194,10 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
 		case Keys.F1:
-			hideWaitThinking();
+			chatMe("hahah asdfakkj aldsf asdf");
 			break;
 		case Keys.F2:
-			MyChess.game.startGame(0);
+			chatOther("kskldfkaskf skafjkls kfjkas kdfja jklds");
 			break;
 		case Keys.F3:
 			MyChess.game.otherQuit();
@@ -197,8 +219,10 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	public void click(Actor actor, float x, float y) {
 		if (actor == settingBtn)
 			((PlayScreen) parent).showSettingLayer();
-		else if (actor == chatBtn)
-			((PlayScreen) parent).showQuitOtherDlg();
+		else if (actor == chatBtn){
+			String s ="Sợ ta chưa!!!! HA HÂHHÂHh";
+			chatMe(s);			
+		}
 		else if (actor == readyBtn){
 			Gdx.app.log(tag, "click Ready");
 			addActor(iconReadyMe);
@@ -243,7 +267,7 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	}
 
 	public void startGame(int firstTurn) {
-		Gdx.app.log(tag, "start game");
+		Gdx.app.log(tag, "start game");		
 		iconReadyMe.remove();
 		iconReadyOther.remove();
 		
@@ -339,4 +363,19 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	public void otherReady() {
 		addActor(iconReadyOther);		
 	}	
+	
+	public void chatMe(String text){
+		MyChess.client.send(PacketFactory.createChat(text));
+		BubbleChat chat = new BubbleChat(ChessTexture.chatMe, getRatioWidth(0.4f), ChessTexture.fontMedium, text);
+		addActor(chat);
+		ActorUtility.setRatio(chat, 1.1f, 0f, width / 2, heightBottom);
+		chat.action(Delay.$(Remove.$(), 1.5f));		
+	}
+	
+	public void chatOther(String text){
+		BubbleChat chat = new BubbleChat(ChessTexture.chatOther, getRatioWidth(0.4f), ChessTexture.fontMedium, text);
+		addActor(chat);
+		ActorUtility.setRatio(chat, -0.1f, 0f, width / 2, heightBottom);
+		chat.action(Delay.$(Remove.$(), 1.5f));
+	}
 }

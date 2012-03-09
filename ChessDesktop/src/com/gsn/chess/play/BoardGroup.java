@@ -55,6 +55,7 @@ public class BoardGroup extends Group implements ClickListener {
 		myParent = parent;
 		logic = new CoTuongLogic();
 		logic.initNewGame(0);
+		state = State.CHUA_BAT_DAU;
 	}
 
 	private void addSuggest(int row, int col) {
@@ -107,8 +108,10 @@ public class BoardGroup extends Group implements ClickListener {
 	}
 
 	private void effectSelect(int row, int col) {
-		selectEff.visible = true;
-		putCell(selectEff, row, col);
+		if (selectEff != null){
+			selectEff.visible = true;
+			putCell(selectEff, row, col);
+		}
 	}
 
 	private void effectCamChieu(int row, int col) {
@@ -116,8 +119,7 @@ public class BoardGroup extends Group implements ClickListener {
 		putCell(camChieuEff, row, col);
 	}
 
-	public void initBoardBg() {
-		state = State.CHUA_CHON;
+	public void initBoardBg() {		
 		float boardWidth = 0.9f * width;
 		float boardHeight = 0.9f * height;
 
@@ -157,6 +159,7 @@ public class BoardGroup extends Group implements ClickListener {
 
 	public void startGame(int firstTurn) {
 		logic = new CoTuongLogic();
+		state = State.CHUA_CHON;
 		logic.initNewGame(firstTurn);
 		turn = 0;		
 		clear();

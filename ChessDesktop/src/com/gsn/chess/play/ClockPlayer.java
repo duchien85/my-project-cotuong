@@ -1,14 +1,16 @@
 package com.gsn.chess.play;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.gsn.engine.ActorUtility;
 
-public class ClockPlayer extends Group {
+public class ClockPlayer extends Group{
 	ClockTurn turnClock;
 	ClockGame gameClock;
 	int turnTime;
 	int gameTime;
-
+	
 	public ClockPlayer(int type, ClockTurn clockTurn, ClockGame clockGame, int timeTurn, int timeGame) {
 		this.turnClock = clockTurn;
 		this.gameClock = clockGame;
@@ -22,7 +24,7 @@ public class ClockPlayer extends Group {
 		turnClock.pause();
 		gameClock.startTime(timeGame);
 		turnClock.pause();
-		switch (type) {
+		switch (type) {		
 		case 0:
 			ActorUtility.setRatio(turnClock, 0f, 0f, 0, 0);
 			ActorUtility.setRatio(gameClock, 1f, 0.5f, width, height / 2);
@@ -32,7 +34,7 @@ public class ClockPlayer extends Group {
 			ActorUtility.setRatio(gameClock, 0f, 0.5f, 0f, height / 2);
 			break;
 		}
-
+		
 		addActor(gameClock);
 		addActor(turnClock);
 	}
@@ -62,5 +64,10 @@ public class ClockPlayer extends Group {
 	public void reset() {
 		gameClock.reset();
 		turnClock.reset();
+	}
+	
+	public void setClickListener(ClickListener listener) {
+		gameClock.setClickListener(listener);
+		turnClock.setClickListener(listener);
 	}
 }

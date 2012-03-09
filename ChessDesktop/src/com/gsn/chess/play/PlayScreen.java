@@ -4,11 +4,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
+import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.EButtonType;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.EDialogType;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.IDialogYesNoListener;
+import com.gsn.chess.lobby.LobbyScreen;
 import com.gsn.chess.lobby.SettingLayer;
 import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.myplay.GsnScreen;
@@ -25,17 +27,25 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 
 	public BoardLayer boardLayer;
 	public SettingLayer settingLayer;
+	public InfoLayer infoLayer;
 	public GsnDialogYesNoLayer dialogLayer;
 
 	public PlayScreen(float width, float height) {
 		super(width, height);
+		init();
+	}
+
+	public void init() {
 		boardLayer = new BoardLayer(width, height);
 		dialogLayer = new DialogYesNoChessLayer();
 		dialogLayer.setDialogListener(this);
 
 		settingLayer = new SettingLayer(width, height);
-
+		infoLayer = new InfoLayer(width, height);
+		
 		addLayer(boardLayer, true);
+		
+		addLayer(infoLayer, false);
 
 		addLayer(settingLayer, false);
 
@@ -57,15 +67,15 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 			} else if (nameDlg.equals(DLG_OTHER_QUIT)) {
 				MyChess.client.send(PacketFactory.createOutRoom());
 				MyChess.game.setLobbyScreen();
-			} else if (nameDlg.equals(DLG_XIN_THUA)){
+			} else if (nameDlg.equals(DLG_XIN_THUA)) {
 				Gdx.app.log(tag, "BAN DA XIN THUA");
 				MyChess.client.send(PacketFactory.createAskLose());
-			} else if (nameDlg.equals(DLG_CAU_HOA)){
+			} else if (nameDlg.equals(DLG_CAU_HOA)) {
 				MyChess.client.send(PacketFactory.createAnswerDrawn(true));
 				inCauHoa = false;
 			}
-		} else if (btn == EButtonType.NO){
-			if (nameDlg.equals(DLG_CAU_HOA)){
+		} else if (btn == EButtonType.NO) {
+			if (nameDlg.equals(DLG_CAU_HOA)) {
 				MyChess.client.send(PacketFactory.createAnswerDrawn(false));
 				inCauHoa = false;
 				boardLayer.clockOne.resume();
@@ -88,14 +98,19 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 	@Override
 	public void onShowScreen() {
 		super.onShowScreen();
-		boardLayer.init();
-		setVisibleLayer(settingLayer, false);
+		init();
 	}
 
 	public void showSettingLayer() {
 		setVisibleLayer(settingLayer, true);
 		settingLayer.setInputListener();
 		settingLayer.loadSetting();
+	}
+	
+	@Override
+	public void onHideScreen() {
+		DataProvider.otherInfo = null;
+		super.onHideScreen();
 	}
 
 	public void hideSettingLayer() {
@@ -106,15 +121,17 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 	public void showXinThua() {
 		dialogLayer.createDialog(EDialogType.YES_NO, DLG_XIN_THUA, "Bạn có muốn xin thua không?");
 		dialogLayer.show();
-		
+
 	}
 
 	public void showKoDongYHoa() {
 		dialogLayer.createDialog(EDialogType.YES, "Doi Thu ko dong y hoa", "Đối thủ không đồng ý hòa?");
 		dialogLayer.show();
-		
+
 	}
+
 	boolean inCauHoa = false;
+
 	public void showCauHoa() {
 		dialogLayer.createDialog(EDialogType.YES_NO, DLG_CAU_HOA, "Đối thủ cầu hòa!!!\nBạn có đồng ý không?");
 		dialogLayer.show();
@@ -122,16 +139,26 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 		boardLayer.clockOne.pause();
 		boardLayer.clockTwo.pause();
 		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {			
+		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				if (inCauHoa){
+				if (inCauHoa) {
 					MyChess.client.send(PacketFactory.createAnswerDrawn(false));
 					inCauHoa = false;
 					dialogLayer.hide();
 				}
 			}
 		}, 4500);
-		
+
+	}
+
+	public void showInfoLayer() {
+		setVisibleLayer(infoLayer, true);
+		infoLayer.setInputListener();		
+	}
+	
+	public void hideInfoLayer() {
+		setVisibleLayer(infoLayer, false);
+		boardLayer.setInputListener();		
 	}
 }

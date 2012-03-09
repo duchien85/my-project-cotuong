@@ -68,6 +68,10 @@ public class GsnLabel extends Widget {
 	public GsnLabel (String text, LabelStyle style) {
 		this(text, style, null);
 	}
+	
+	public GsnLabel(String text, BitmapFont font, Color color){
+		this(text, new LabelStyle(font, color));
+	}
 
 	public GsnLabel (String text, LabelStyle style, String name) {
 		super(name);

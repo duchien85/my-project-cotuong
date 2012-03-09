@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import com.gsn.engine.IDowloader;
 import com.gsn.engine.mercurry.Ping.IPingListener;
+import com.sun.opengl.util.texture.Texture;
 
 public class MercuryClient implements IPingListener{
 	public interface IMercuryListener {
@@ -305,7 +306,7 @@ public class MercuryClient implements IPingListener{
 		// Prepare the buffer for reading by the socket
 		buf.flip();
 		// Write bytes
-		int numBytesWritten = socketChannel.write(buf);
+		int numBytesWritten = socketChannel.write(buf);		
 		buf.clear();
 	}
 	

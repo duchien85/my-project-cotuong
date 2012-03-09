@@ -5,6 +5,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.engine.ActorUtility;
 
@@ -16,11 +17,11 @@ public class ClockGame extends Group {
 	float standardTime;
 	float remainTime;
 	boolean pause = false;
-	
+	Image bg;	
 	public ClockGame(TextureRegion background, List<AtlasRegion> nums, TextureRegion haicham) {
 		this.nums = nums;
 		this.haicham = new Image(haicham);
-		Image bg = new Image(background);
+		bg = new Image(background);
 		addActor(bg);
 		this.width = bg.width;
 		this.height = bg.height;							
@@ -40,6 +41,10 @@ public class ClockGame extends Group {
 			group.addActor(tmp);
 		}
 		return group;
+	}
+	
+	public void setClickListener(ClickListener listener){
+		bg.setClickListener(listener);
 	}
 	
 	private Group convertTime(int time){

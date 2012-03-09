@@ -5,6 +5,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.engine.ActorUtility;
@@ -17,7 +18,7 @@ public class ClockTurn extends Group {
 	boolean pause = false;
 	Image bg;
 	TextureRegion bgRun;
-	TextureRegion bgPause;
+	TextureRegion bgPause;	
 	
 	public ClockTurn(TextureRegion backgroundRun, TextureRegion backgroundPause,  List<AtlasRegion> nums) {
 		this.nums = nums;
@@ -27,6 +28,10 @@ public class ClockTurn extends Group {
 		this.height = bg.height;	
 		bgRun = backgroundRun;
 		bgPause = backgroundPause;
+	}
+	
+	public void setClickListener(ClickListener listener) {
+		bg.setClickListener(listener);
 	}
 	
 	private Group convertNum(Integer time){

@@ -6,8 +6,8 @@ import java.util.List;
 
 abstract public class GsnScreen{	
 	private List<GsnLayer> layers = new ArrayList<GsnLayer>();
-	float width;
-	float height;
+	public float width;
+	public float height;
 	public GsnScreen(float width, float height) {
 		this.width = width;
 		this.height = height;

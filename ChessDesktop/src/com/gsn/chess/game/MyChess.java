@@ -9,5 +9,5 @@ public class MyChess {
 	public static ChessGame game;	
 	
 	//public static String server = "118.102.3.7";
-	public static String server = "120.138.65.118";
+	public static String server = "120.138.65.103";
 }

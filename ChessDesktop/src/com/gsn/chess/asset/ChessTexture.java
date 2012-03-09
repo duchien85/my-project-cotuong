@@ -108,7 +108,12 @@ public class ChessTexture {
 	public static AtlasRegion xinthuaBtn;
 	public static AtlasRegion xinthuaBtnDown;
 	public static AtlasRegion xinthuaBtnInvi;
+	public static AtlasRegion userinfoBG;
+	public static AtlasRegion avatarBG;
+	public static AtlasRegion scoreBoard;
 	
+	public static List<AtlasRegion> chatMe;
+	public static List<AtlasRegion> chatOther;
 
 	static public void create() {
 		Resolution[] resolutions = { new Resolution(240, 320, "240320")};
@@ -205,9 +210,9 @@ public class ChessTexture {
 		bet5000_3 = atlas.findRegion("muc cuoc 5k chon");
 		bet5000_4 = atlas.findRegion("muc cuoc 5k disable");
 		
-		quickPlayBtn = atlas.findRegion("xinthuaBtn");
-		quickPlayBtnDown = atlas.findRegion("xinthuaBtn invi");
-		quickPlayBtnDisable = atlas.findRegion("xinthuaBtnDown");
+		quickPlayBtn = atlas.findRegion("choingayBtn");
+		quickPlayBtnDown = atlas.findRegion("choingayBtnDown");
+		quickPlayBtnDisable = atlas.findRegion("choingayBtnOff");
 		
 		readyButton = atlas.findRegion("sansangBtn");
 		readyButtonDown = atlas.findRegion("sansangBtnDown");
@@ -240,6 +245,13 @@ public class ChessTexture {
 		xinthuaBtn = atlas.findRegion("xinthuaBtn");
 		xinthuaBtnDown = atlas.findRegion("xinthuaBtnDown");
 		xinthuaBtnInvi = atlas.findRegion("xinthuaBtn invi");
+		
+		userinfoBG = atlas.findRegion("userInfo");
+		avatarBG = atlas.findRegion("avatar user");	
+		scoreBoard = atlas.findRegion("scoreBoard");
+		
+		chatMe = atlas.findRegions("bubbleChatPhai");
+		chatOther = atlas.findRegions("bubbleChatTrai");
 	}
 
 	static public void loadTexture() {

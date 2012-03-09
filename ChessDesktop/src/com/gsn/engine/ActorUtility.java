@@ -14,4 +14,10 @@ public class ActorUtility {
 		actor.y = y - actor.height * ratioHeight;
 	}
 
+	public static String getShortName(String name) {
+		if (name.length() >= 9)
+			return (name.substring(0, 6) + "...");
+		else
+			return name;
+	}
 }

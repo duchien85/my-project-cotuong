@@ -134,4 +134,17 @@ public class PacketFactory {
 		}
 		return json;
 	}
+
+	public static JSONObject createChat(String s) {
+		JSONObject json = create();
+		JSONObject params = new JSONObject();
+		try {			
+			json.put(CmdDefine.CMD, CmdDefine.CMD_CHAT_ROOM);
+			params.put("m", s);
+			json.put(CmdDefine.PARAMS, params);
+		} catch (JSONException e) {			
+			e.printStackTrace();
+		}
+		return json;
+	}
 }

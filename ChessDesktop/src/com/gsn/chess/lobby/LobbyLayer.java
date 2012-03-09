@@ -15,6 +15,7 @@ import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.packet.PacketFactory;
+import com.gsn.chess.play.BubbleChat;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.IDowloader.IImageFactoryListener;
 import com.gsn.engine.layout.GsnTableLayout;
@@ -108,7 +109,8 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 		greyBG.remove();
 		noticeImg.remove();
 		
-		//MyChess.client.downloader.saveBitmapToFileAsync("me", DataProvider.myInfo.avatar, 64, 64, "haha", this);
+		BubbleChat chat = new BubbleChat(ChessTexture.chatMe, 80, ChessTexture.fontMedium, "kakaksf sdfas sdf asf asfa sdfas df sadf asfasd fasf asdfdsafasd fas asdfsdf");
+		addActor(chat);
 	}	
 	
 	@Override
@@ -138,11 +140,12 @@ public class LobbyLayer extends GsnLayer implements ClickListener, IImageFactory
 	public boolean keyDown(int keycode) {
 		switch (keycode){
 		case Keys.F1:
-			MyChess.game.lobbyScreen.showCantConnect();
+			//set avatar
+						
 			break;
 		case Keys.F2:
-			Gdx.app.log(tag, "init");
-			MyChess.game.lobbyScreen.lobbyLayer.init();
+			//set info
+			
 			break;
 		}
 		return super.keyDown(keycode);
