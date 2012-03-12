@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import com.gsn.engine.IDowloader;
 import com.gsn.engine.mercurry.Ping.IPingListener;
-import com.sun.opengl.util.texture.Texture;
 
 public class MercuryClient implements IPingListener{
 	public interface IMercuryListener {

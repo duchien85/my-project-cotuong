@@ -5,7 +5,6 @@ import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Delay;
@@ -15,18 +14,22 @@ import com.badlogic.gdx.scenes.scene2d.actions.Sequence;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.gsn.chess.asset.ChessSound;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.game.MyChess;
+import com.gsn.chess.lobby.LobbyScreen;
+import com.gsn.chess.lobby.Notice;
 import com.gsn.chess.packet.PacketFactory;
-import com.gsn.chess.play.BoardGroup.State;
 import com.gsn.engine.ActorUtility;
+import com.gsn.engine.IChatInput;
+import com.gsn.engine.IChatInput.IChatListener;
 import com.gsn.engine.myplay.GsnLayer;
 import com.gsn.engine.template.GsnEnableButton;
 
 public class BoardLayer extends GsnLayer implements ClickListener {
 	public static final String tag = "Board Layer";
 	
-	public static final int MIN_XIN_HOA = 1;
+	public static final int MIN_XIN_HOA = 30;
 	BoardGroup boardGroup;
 	float time = 0;
 	float timeEffect = 1.5f;
@@ -50,13 +53,15 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	GsnEnableButton xinthuaBtn;
 	
 	Image greyBG;
-	Image waitThinkingNocite;
+	Notice waitThinkingNocite;
 	
 	float heightTop;
 	
 	int turnXinHoa = -1;
 	int numXinHoa = 0;
-
+	Image betIcon;
+	Notice waitOtherJoin;
+	
 	private float heightBottom;
 	public BoardLayer(float width, float height) {
 		super(width, height);
@@ -76,10 +81,10 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		greyBG.width = width;
 		greyBG.height = height;
 		greyBG.setClickListener(this);
-		waitThinkingNocite = new Image(ChessTexture.waitingNotice);
+		waitThinkingNocite = new Notice("Chờ đối thủ suy nghĩ...");
 		ActorUtility.setCenter(waitThinkingNocite, width / 2, height / 2);
 		
-		Image betIcon = new Image(ChessTexture.betIcon1000);
+		betIcon = new Image(ChessTexture.betIcon1000);
 		ActorUtility.setRatio(betIcon, 0, 1, 0, height);
 
 		settingBtn = new ImageButton(ChessTexture.settingBtn, ChessTexture.settingBtnDown);
@@ -172,12 +177,18 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		clockOne.setClickListener(listen);
 		clockTwo.setClickListener(listen);
 		
+		waitOtherJoin = new Notice("Vui lòng chờ người chơi khác...");
+		ActorUtility.setCenter(waitOtherJoin, width / 2, height / 2);
+		
 		addActor(boardGroup);
 		addActor(settingBtn);
 		addActor(betIcon);
 		addActor(chatBtn);
 		addActor(clockOne);
 		addActor(clockTwo);
+		
+		addActor(waitOtherJoin);
+		
 		addActor(featureBtn);		
 		
 		addActor(featureGroup);
@@ -193,23 +204,15 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	@Override
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
+		case Keys.MENU:
 		case Keys.F1:
-			chatMe("hahah asdfakkj aldsf asdf");
+			// set avatar
+			((PlayScreen)parent).showSettingLayer();
 			break;
+		case Keys.BACK:
 		case Keys.F2:
-			chatOther("kskldfkaskf skafjkls kfjkas kdfja jklds");
-			break;
-		case Keys.F3:
-			MyChess.game.otherQuit();
-			break;
-		case Keys.F4:
-			MyChess.game.win(0);
-			break;
-		case Keys.F5:
-			MyChess.game.lose(0);
-			break;
-		case Keys.F6:
-			MyChess.game.draw(0);
+			// set info
+			((PlayScreen)parent).showQuitDialog();
 			break;
 		}
 		return super.keyDown(keycode);
@@ -217,11 +220,18 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 
 	@Override
 	public void click(Actor actor, float x, float y) {
+		ChessSound.playSoundClick();
 		if (actor == settingBtn)
 			((PlayScreen) parent).showSettingLayer();
 		else if (actor == chatBtn){
-			String s ="Sợ ta chưa!!!! HA HÂHHÂHh";
-			chatMe(s);			
+			MyChess.chatInput.chatInput(new IChatInput.IChatListener() {
+				
+				@Override
+				public void onFinish(String input) {
+					// TODO Auto-generated method stub
+					chatMe(input);
+				}
+			});			
 		}
 		else if (actor == readyBtn){
 			Gdx.app.log(tag, "click Ready");
@@ -257,11 +267,15 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 	public void hideWaitThinking(){
 		removeActor(greyBG);
 		removeActor(waitThinkingNocite);
-		clockOne.resume();
-		clockTwo.resume();
+				
+		if (boardGroup.logic.getCurrentTurnID() == 0)
+			clockOne.resume();
+		else
+			clockTwo.resume();
 	}
 
 	public void otherJoin() {
+		waitOtherJoin.remove();
 		readyBtn.visible = true;
 		boardGroup.initBoardPiece();
 	}
@@ -272,10 +286,11 @@ public class BoardLayer extends GsnLayer implements ClickListener {
 		iconReadyOther.remove();
 		
 		turnXinHoa = -1;
-		numXinHoa = 0;
-		setVisibleFeature();
+		numXinHoa = 0;		
 		
 		boardGroup.startGame(firstTurn);
+		setVisibleFeature();
+		
 		startEffect.color.a = 1;
 		startEffect.action(Sequence.$(FadeOut.$(timeEffect)));
 		clockOne.reset();

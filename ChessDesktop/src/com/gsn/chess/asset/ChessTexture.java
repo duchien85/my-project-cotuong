@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 
 public class ChessTexture {
 	static public final String tag = "Chess Texture";
@@ -86,7 +84,7 @@ public class ChessTexture {
 	public static AtlasRegion cancelBtnDown;
 	public static AtlasRegion cancelBtn;
 	public static AtlasRegion dialogBg;
-	public static AtlasRegion waitingNotice;
+	public static AtlasRegion waitingBG;
 	public static AtlasRegion exitBtn;
 	public static AtlasRegion exitBtnDown;
 	public static AtlasRegion soundBtn;
@@ -111,6 +109,8 @@ public class ChessTexture {
 	public static AtlasRegion userinfoBG;
 	public static AtlasRegion avatarBG;
 	public static AtlasRegion scoreBoard;
+	public static AtlasRegion infoLobby;
+	public static AtlasRegion avatarLobby;
 	
 	public static List<AtlasRegion> chatMe;
 	public static List<AtlasRegion> chatOther;
@@ -219,7 +219,7 @@ public class ChessTexture {
 		
 		effectBatDau = atlas.findRegion("effect bat dau");
 		
-		waitingNotice = atlas.findRegion("waitingNotice");		
+		waitingBG = atlas.findRegion("noticeBG");		
 		
 		exitBtn = atlas.findRegion("ExitBtn");
 		exitBtnDown = atlas.findRegion("ExitBtnDown");
@@ -252,6 +252,9 @@ public class ChessTexture {
 		
 		chatMe = atlas.findRegions("bubbleChatPhai");
 		chatOther = atlas.findRegions("bubbleChatTrai");
+		
+		infoLobby = atlas.findRegion("Lobby userInfoBG");
+		avatarLobby = atlas.findRegion("Lobby userInfoAvatar");
 	}
 
 	static public void loadTexture() {

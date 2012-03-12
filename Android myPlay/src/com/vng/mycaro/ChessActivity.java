@@ -13,6 +13,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.gsn.chess.game.ChessGame;
 import com.gsn.chess.game.MyChess;
 import com.gsn.engine.DownloaderAndroid;
+import com.gsn.engine.LoginDlg;
 import com.vng.mycaro.ChessService.ChessBinder;
 
 public class ChessActivity extends AndroidApplication {    
@@ -30,8 +31,13 @@ public class ChessActivity extends AndroidApplication {
 			ChessBinder binder = (ChessBinder) service;
 			MyChess.client = binder.client;						
 			MyChess.client.downloader = new DownloaderAndroid();
-			MyChess.client.downloader.cacheDir = getCacheDir();
+			MyChess.client.downloader.cacheDir = getExternalCacheDir();
+			MyChess.chatInput = new LoginDlg(ChessActivity.this, R.layout.chat);
 		}
+	};
+	
+	public void onBackPressed() {
+		
 	};
 	
 	ChessGame game;
@@ -47,9 +53,6 @@ public class ChessActivity extends AndroidApplication {
 		initialize(game, config);
         
         this.bindService(new Intent(this, ChessService.class), conn, Context.BIND_AUTO_CREATE);
-        
-    	
-		
        // setContentView(R.layout.main);
     }
 }

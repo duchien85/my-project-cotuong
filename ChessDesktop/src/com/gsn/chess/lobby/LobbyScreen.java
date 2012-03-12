@@ -1,6 +1,7 @@
 package com.gsn.chess.lobby;
 
 import com.badlogic.gdx.Gdx;
+import com.gsn.chess.asset.ChessSound;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.EButtonType;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.EDialogType;
@@ -31,6 +32,12 @@ public class LobbyScreen extends GsnScreen implements IDialogYesNoListener {
 		dialogLayer.setDialogListener(this);
 		
 	}
+	
+	@Override
+	public void onShowScreen() {		
+		super.onShowScreen();
+		lobbyLayer.setUserInfo();
+	}
 
 	@Override
 	public void setInputListener() {
@@ -43,7 +50,8 @@ public class LobbyScreen extends GsnScreen implements IDialogYesNoListener {
 	}
 
 	@Override
-	public void clickButton(String nameDlg, EButtonType btn) {		
+	public void clickButton(String nameDlg, EButtonType btn) {
+		ChessSound.playSoundClick();
 		if (nameDlg.equals(DLG_CANT_CONNECT)){
 			switch (btn){
 			case YES:
@@ -83,8 +91,12 @@ public class LobbyScreen extends GsnScreen implements IDialogYesNoListener {
 
 	public void showExitDlg() {
 		dialogLayer.createDialog(EDialogType.YES_NO, DLG_QUIT, "Bạn có muốn thoát không?");
-		dialogLayer.show();
-		
+		dialogLayer.show();		
+	}
+
+	public void showDailyLogin(int data, int gold) {
+		dialogLayer.createDialog(EDialogType.YES_NO, "daily login", "Bạn đã nhân được " + gold + " do đăng nhập ngày thứ " + data + "!!!");
+		dialogLayer.show();		
 	}
 
 }

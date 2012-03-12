@@ -7,4 +7,5 @@ public class DataProvider {
 
 	public static PlayerInfo myInfo;
 	public static PlayerInfo otherInfo;
+	public static int betLvl;
 }

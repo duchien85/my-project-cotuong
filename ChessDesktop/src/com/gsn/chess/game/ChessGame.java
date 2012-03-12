@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.badlogic.gdx.Gdx;
+import com.gsn.chess.asset.ChessSound;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.loading.LoadingAsset;
@@ -37,6 +38,8 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 
 		ChessTexture.create();
 		ChessTexture.loadTexture();
+		
+		ChessSound.load();
 
 		LoadingAsset.create();
 		loadingScreen = new LoadingScreen(this, width, height);
@@ -86,7 +89,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 
 	@Override
 	public void onConnected() {
-		session = "1F018988CAF8D80B7A75F63E";
+		session = "1F01898824E661A8CE722EB1";
 		// session = "1F018988DE18E1";
 		MyChess.client.send(PacketFactory.createLogin(session));
 	}
@@ -149,8 +152,9 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 				otherReady();
 				break;
 			case CmdDefine.CMD_START:
+				ChessSound.playSoundStart();
 				int next = json.getInt("next");
-				// int below = json.getInt("below");
+				// int below = json.getInt("below");				
 				int above = json.getInt("above");
 				reserve = (above == DataProvider.myInfo.id);
 				if (next == DataProvider.myInfo.id)
@@ -159,6 +163,7 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 					startGame(1);
 				break;
 			case CmdDefine.CMD_CHESS_MOVE:
+				ChessSound.playSoundHit();
 				int id = json.getInt("playerId");
 				int fromRow = json.getInt("fromRow");
 				int fromCol = json.getInt("fromCol");
@@ -234,6 +239,13 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 				String chat = json.getString("m");
 				playScreen.boardLayer.chatOther(chat);
 				break;
+			case CmdDefine.CMD_EARN_MONEY:
+				int type = json.getInt("type");
+				int gold = json.getInt("gold");
+				int data = json.getInt("data");
+				if (type == 0)
+					lobbyScreen.showDailyLogin(data, gold);
+				break;
 			}
 		} catch (Exception e) {
 			Gdx.app.error(tag, "Loi onReceive", e);
@@ -262,17 +274,20 @@ public class ChessGame extends GsnGame implements IMercuryListener {
 
 	public void win(int canContinue) {
 		Gdx.app.log(tag, "WIN");
+		ChessSound.playSoundWin();
 		playScreen.boardLayer.youWin(canContinue);
 		playScreen.infoLayer.win();
 	}
 
 	public void lose(int canContinue) {
 		Gdx.app.log(tag, "LOSE");
+		ChessSound.playSoundLose();
 		playScreen.boardLayer.youLose(canContinue);
 		playScreen.infoLayer.lose();
 	}
 
 	public void draw(int canContinue) {
+		ChessSound.playSoundDraw();
 		Gdx.app.log(tag, "DRAW");
 		playScreen.boardLayer.youDraw(canContinue);
 

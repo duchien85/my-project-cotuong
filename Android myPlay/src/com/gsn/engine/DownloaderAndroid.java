@@ -11,11 +11,12 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class DownloaderAndroid extends IDowloader {
-
+	private String tag = "Download android";
 	@Override
 	public void saveBitmapToFileAsync(final String id, final String link, final int width, final int height, final String localPath, final IImageDownloadListener listener) {
 		final int quality = 80;
-		Thread t = new Thread(new Runnable() {
+		Thread t = new Thread(new Runnable() {			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -27,6 +28,7 @@ public class DownloaderAndroid extends IDowloader {
 				try {
 					File fileOut = new File(cacheDir, localPath);
 					if (fileOut.exists()){
+						Log.i(tag, "Da ton tai anh!! Ko phai down lai");
 						listener.onFinishLoading(id, fileOut);
 						return;
 					} 
@@ -41,6 +43,7 @@ public class DownloaderAndroid extends IDowloader {
 					out.flush();
 					out.close();
 					listener.onFinishLoading(id, fileOut);
+					Log.i(tag, "Down anh vao : " + fileOut.getAbsolutePath());
 				} catch (Exception e) {
 					Log.e("Gallery", "loi gi nay", e);
 					listener.onError(e);

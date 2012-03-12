@@ -1,7 +1,7 @@
 
-loading 240x3201.png
+content loading1.png
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 loading
   rotate: false
@@ -13,14 +13,14 @@ loading
 chu loading
   rotate: false
   xy: 2, 324
-  size: 54, 13
-  orig: 54, 13
+  size: 59, 17
+  orig: 59, 17
   offset: 0, 0
   index: -1
 dau cham
   rotate: false
   xy: 244, 2
-  size: 2, 2
-  orig: 2, 2
+  size: 3, 3
+  orig: 3, 3
   offset: 0, 0
   index: -1

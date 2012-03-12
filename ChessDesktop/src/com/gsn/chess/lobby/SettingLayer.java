@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.gsn.chess.asset.ChessSound;
 import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.game.ChessSetting;
 import com.gsn.chess.play.PlayScreen;
@@ -55,7 +56,7 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 
 	@Override
 	public void click(Actor actor, float x, float y) {
-		Gdx.app.log(tag , "click ");	
+		Gdx.app.log(tag , "click ");		
 		if (actor == exitBtn){
 			if (parent instanceof LobbyScreen)
 				((LobbyScreen)parent).showExitDlg();
@@ -65,6 +66,7 @@ public class SettingLayer extends GsnLayer implements ClickListener{
 			ChessSetting.enableSound = !soundBtn.isChecked();
 			Gdx.app.log(tag, " enable sound : " + ChessSetting.enableSound);
 		}
+		ChessSound.playSoundClick();
 	}
 
 	public void loadSetting() {		

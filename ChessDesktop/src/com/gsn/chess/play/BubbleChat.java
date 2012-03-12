@@ -6,10 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;import com.badlogic.gdx.scenes.scene2d.ui.Align;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.template.GsnLabel;
 

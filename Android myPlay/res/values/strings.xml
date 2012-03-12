@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, AndroidmyPlayActivity!</string>
     <string name="app_name">Android myPlay</string>
+    <string name="send">Gửi</string>
 
 </resources>

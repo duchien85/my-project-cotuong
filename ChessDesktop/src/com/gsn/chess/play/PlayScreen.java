@@ -4,13 +4,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
+import com.gsn.chess.asset.ChessSound;
+import com.gsn.chess.asset.ChessTexture;
 import com.gsn.chess.asset.DataProvider;
 import com.gsn.chess.game.MyChess;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.EButtonType;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.EDialogType;
 import com.gsn.chess.lobby.GsnDialogYesNoLayer.IDialogYesNoListener;
-import com.gsn.chess.lobby.LobbyScreen;
 import com.gsn.chess.lobby.SettingLayer;
 import com.gsn.chess.packet.PacketFactory;
 import com.gsn.engine.myplay.GsnScreen;
@@ -60,6 +61,7 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 	@Override
 	public void clickButton(String nameDlg, EButtonType btn) {
 		// Gdx.app.log(tag, "click yes btn, DLG : " + nameDlg);
+		ChessSound.playSoundClick();
 		if (btn == EButtonType.YES) {
 			if (nameDlg.equals(DLG_QUIT)) {
 				MyChess.client.send(PacketFactory.createOutRoom());
@@ -78,8 +80,7 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 			if (nameDlg.equals(DLG_CAU_HOA)) {
 				MyChess.client.send(PacketFactory.createAnswerDrawn(false));
 				inCauHoa = false;
-				boardLayer.clockOne.resume();
-				boardLayer.clockTwo.resume();
+				boardLayer.hideWaitThinking();
 
 			}
 		}
@@ -98,7 +99,11 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 	@Override
 	public void onShowScreen() {
 		super.onShowScreen();
-		init();
+		init();		
+		if (DataProvider.betLvl == 5000)
+			boardLayer.betIcon.setRegion(ChessTexture.betIcon5000);
+		else
+			boardLayer.betIcon.setRegion(ChessTexture.betIcon1000);
 	}
 
 	public void showSettingLayer() {
@@ -146,6 +151,7 @@ public class PlayScreen extends GsnScreen implements IDialogYesNoListener {
 					MyChess.client.send(PacketFactory.createAnswerDrawn(false));
 					inCauHoa = false;
 					dialogLayer.hide();
+					boardLayer.hideWaitThinking();
 				}
 			}
 		}, 4500);

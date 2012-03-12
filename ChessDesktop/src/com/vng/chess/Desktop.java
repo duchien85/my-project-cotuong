@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.gsn.chess.game.ChessGame;
 import com.gsn.chess.game.MyChess;
 import com.gsn.engine.DownloadDesktop;
+import com.gsn.engine.InputChatDesktop;
 import com.gsn.engine.mercurry.MercuryClient;
 
 public class Desktop {
@@ -29,6 +30,7 @@ public class Desktop {
 		MyChess.game = game;
 		MyChess.client = new MercuryClient(MyChess.server, 443, game);		
 		MyChess.client.downloader = new DownloadDesktop();
+		MyChess.chatInput = new InputChatDesktop();
 	}
 	
 	static ChessGame game;
